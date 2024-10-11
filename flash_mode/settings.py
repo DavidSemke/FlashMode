@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "study_dashboard.apps.StudyDashboardConfig"
+    # First party
+    "dashboard.apps.DashboardConfig",
+    # Third Party
+    "django_bootstrap5"
 ]
 
 MIDDLEWARE = [
