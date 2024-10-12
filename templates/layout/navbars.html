@@ -1,0 +1,17 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+<nav>
+    <div>
+        <a href='/' aria-label='Home'>X</a>
+        <a href='/dashboard' aria-label='Dashboard'>X</a>
+    </div>
+    <div>
+        <button aria-label='Create deck'>X</button>
+        <button aria-label='Find deck'>X</button>
+    </div>
+</nav>
+<div>
+    {% block main %}{% endblock %}
+</div>
+{% endblock %}
