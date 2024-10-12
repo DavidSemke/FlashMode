@@ -25,7 +25,15 @@ SECRET_KEY = "django-insecure-u9hddd-1c(tw*%+#sw$5mw(^=vtcqob+h@ew-l2+6%+y4ig5i9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    # '.railway.app'
+]
+
+if DEBUG:
+    ALLOWED_HOSTS += [
+        '127.0.0.1',
+        'localhost'
+    ]
 
 
 # Application definition
@@ -40,7 +48,6 @@ INSTALLED_APPS = [
     # First party
     "dashboard.apps.DashboardConfig",
     # Third Party
-    "django_bootstrap5"
 ]
 
 MIDDLEWARE = [
@@ -58,7 +65,7 @@ ROOT_URLCONF = "flash_mode.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
