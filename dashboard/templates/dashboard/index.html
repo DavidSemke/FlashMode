@@ -1,0 +1,37 @@
+{% extends "layout/navbars.html" %}
+
+{% block main %}
+<main>
+    <h1>Hi, NAME</h1>
+    <section>
+        <h2>Weekly Goal</h2>
+        <div>Progress bar</div>
+        <p>You have completed % of your weekly goal!</p>
+        <div>
+            <div>Current goal:</div>
+            <div>X minutes/hours</div>
+            <button>Change Weekly Goal</button>
+        </div>
+    </section>
+    <section>
+        <h2>Time and Accuracy</h2>
+        <h3>Deck name</h3>
+        <div>
+            <button aria-label='Play deck'>X</button>
+            <button aria-label='Close deck'>X</button>
+        </div>
+        <dl>
+            <dt>Total Questions</dt>
+            <dd>0</dd>
+            <dt>Category</dt>
+            <dd>0</dd>
+            <dt>Time Since Last Use</dt>
+            <dd>0</dd>
+            <dt>Importance</dt>
+            <dd>0</dd>
+        </dl>
+        <div>Time progress bar</div>
+        <div>Accuracy progress bar</div>
+    </section>
+</main>
+{% endblock %}
