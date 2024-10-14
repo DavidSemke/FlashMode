@@ -8,5 +8,5 @@ local_settings.py
 db.sqlite3
 
 # Ignore CDN files
-src/static/vendors
-local-cdn
+src/staticfiles/vendors
+local_cdn

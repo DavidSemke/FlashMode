@@ -137,17 +137,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_BASE_DIR = BASE_SRC_DIR / "static"
-STATIC_VENDOR_DIR = STATIC_BASE_DIR / "vendors"
+STATICFILES_BASE_DIR = BASE_SRC_DIR / "staticfiles"
+STATICFILES_VENDOR_DIR = STATICFILES_BASE_DIR / "vendors"
 
 # Source(s) for python manage.py collectstatic
-STATIC_DIRS = [
-    STATIC_BASE_DIR
+STATICFILES_DIRS = [
+    STATICFILES_BASE_DIR
 ]
 
 # Output for python manage.py collectstatic
 # Local CDN placed outside src folder
-STATIC_ROOT = BASE_SRC_DIR.parent / "local-cdn"
+STATIC_ROOT = BASE_SRC_DIR.parent / "local_cdn"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
