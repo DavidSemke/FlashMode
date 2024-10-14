@@ -44,11 +44,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # First party
     "dashboard.apps.DashboardConfig",
+    "commando",
     # Third Party
+    "whitenoise.runserver_nostatic",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -89,13 +92,13 @@ DATABASES = {
 }
 
 CONN_MAX_AGE = config('CONN_MAX_AGE', default=30, cast=int)
-DATABASE_URL = str(config('DATABASE_URL'))
+DATABASE_URL = config('DATABASE_URL', default=None) 
 
 if DATABASE_URL is not None:
     import dj_database_url
     DATABASES = {
         "default": dj_database_url.config(
-            default=DATABASE_URL,
+            default=str(DATABASE_URL),
             conn_max_age=CONN_MAX_AGE,
             conn_health_checks=True
         )
@@ -138,6 +141,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_BASE_DIR = BASE_SRC_DIR / "staticfiles"
+STATICFILES_BASE_DIR.mkdir(exist_ok=True, parents=True)
 STATICFILES_VENDOR_DIR = STATICFILES_BASE_DIR / "vendors"
 
 # Source(s) for python manage.py collectstatic
@@ -153,3 +157,9 @@ STATIC_ROOT = BASE_SRC_DIR.parent / "local_cdn"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
