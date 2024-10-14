@@ -13,14 +13,14 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from decouple import config
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# Build paths inside the project like this: BASE_SRC_DIR / 'subdir'.
+BASE_SRC_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 SECRET_KEY = config('DJANGO_SECRET_KEY')
-DEBUG = config('DJANGO_DEBUG')
+DEBUG = config('DJANGO_DEBUG', cast=bool)
 
 ALLOWED_HOSTS = [
     # '.railway.app'
@@ -62,7 +62,7 @@ ROOT_URLCONF = "flash_mode.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_SRC_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -84,11 +84,11 @@ WSGI_APPLICATION = "flash_mode.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_SRC_DIR / "db.sqlite3",
     }
 }
 
-CONN_MAX_AGE = int(config('CONN_MAX_AGE', default=30))
+CONN_MAX_AGE = config('CONN_MAX_AGE', default=30, cast=int)
 DATABASE_URL = str(config('DATABASE_URL'))
 
 if DATABASE_URL is not None:
@@ -137,6 +137,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_BASE_DIR = BASE_SRC_DIR / "static"
+STATIC_VENDOR_DIR = STATIC_BASE_DIR / "vendors"
+
+# Source(s) for python manage.py collectstatic
+STATIC_DIRS = [
+    STATIC_BASE_DIR
+]
+
+# Output for python manage.py collectstatic
+# Local CDN placed outside src folder
+STATIC_ROOT = BASE_SRC_DIR.parent / "local-cdn"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
