@@ -16,8 +16,19 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_SRC_DIR / 'subdir'.
 BASE_SRC_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+# Continue email setup:
+# https://www.youtube.com/watch?v=WbNNESIxJnY&list=PLEsfXFp6DpzRDEA6ElMF_NuLu9cvoK49v&index=2
+# Email config
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST', cast=str, default='smtp.gmail.com')
+EMAIL_PORT = config('EMAIL_PORT', cast=str, default='587')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool, default=True)
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool, default=False)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=None)
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default=None)
+
+# For production, see:
+# https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 DEBUG = config('DJANGO_DEBUG', cast=bool)
