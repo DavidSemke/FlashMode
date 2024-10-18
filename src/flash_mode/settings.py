@@ -16,8 +16,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_SRC_DIR / 'subdir'.
 BASE_SRC_DIR = Path(__file__).resolve().parent.parent
 
-# Continue email setup:
-# https://www.youtube.com/watch?v=WbNNESIxJnY&list=PLEsfXFp6DpzRDEA6ElMF_NuLu9cvoK49v&index=2
 # Email config
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST', cast=str, default='smtp.gmail.com')
@@ -26,6 +24,9 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool, default=True)
 EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool, default=False)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=None)
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default=None)
+
+ADMINS = [('TestSubject', EMAIL_HOST_USER)] if EMAIL_HOST_USER else []
+MANAGERS=ADMINS
 
 # For production, see:
 # https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -53,11 +54,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # First party
+    # My apps
     "dashboard.apps.DashboardConfig",
-    "commando",
-    # Third Party
+    "commando.apps.CommandoConfig",
+    # Third party apps
     "whitenoise.runserver_nostatic",
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount'
 ]
 
 MIDDLEWARE = [
@@ -68,6 +72,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
@@ -133,6 +138,23 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+# Allauth Config
+LOGIN_REDIRECT_URL = '/dashboard'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_SUBJECT_PREFIX = '[FlashMode] '
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+SOCIALACCOUNT_PROVIDERS = {}
 
 
 # Internationalization

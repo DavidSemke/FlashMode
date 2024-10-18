@@ -18,11 +18,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from .views import index
+from auth0 import views as auth_views
 # from django.conf import settings
 
 urlpatterns = [
-    path("", index),
-    path("dashboard/", include("dashboard.urls")),
+    path('', index),
+    path('login/', auth_views.login_view),
+    path('dashboard/', include('dashboard.urls')),
+    path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
 ] # + debug_toolbar_urls()
 
