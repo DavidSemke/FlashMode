@@ -59,9 +59,13 @@ INSTALLED_APPS = [
     "commando.apps.CommandoConfig",
     # Third party apps
     "whitenoise.runserver_nostatic",
+    "allauth_ui",
     'allauth',
     'allauth.account',
-    'allauth.socialaccount'
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    "widget_tweaks",
+    "slippers",
 ]
 
 MIDDLEWARE = [
@@ -138,6 +142,9 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+# Allauth UI Config
+ALLAUTH_UI_THEME = "light"
 
 # Allauth Config
 LOGIN_REDIRECT_URL = '/dashboard'
