@@ -1,7 +1,7 @@
 {% extends "nonoverrides/layouts/root.html" %}
 
 {% block body %}
-    {% include 'components/nav/topbar.html' %}
+    {% include 'nonoverrides/components/nav/topbar.html' %}
     {% include 'nonoverrides/components/message/if_messages.html' with messages=messages %}
     <div>
         {% block main %}{% endblock %}

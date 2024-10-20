@@ -21,7 +21,7 @@ from .views import index
 # from django.conf import settings
 
 urlpatterns = [
-    path('', index),
+    path('', index, name='home'),
     path('dashboard/', include('dashboard.urls')),
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
