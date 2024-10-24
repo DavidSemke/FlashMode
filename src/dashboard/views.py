@@ -4,9 +4,11 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 # from .models import Choice, Question
 
+@login_required
 def index(request):
     return render(request, "dashboard/index.html")
 
