@@ -5,10 +5,11 @@
 <!DOCTYPE html>
 <html data-theme="{% allauth_ui_theme %}">
     <head>
-        {% include 'nonoverrides/components/metadata/inner_head.html' %}
         {% block extra_head %}
             <link rel="stylesheet" href="{% static 'allauth_ui/output.css' %}">
         {% endblock extra_head %}
+        {% comment %} Place after allauth_ui css for precedence {% endcomment %}
+        {% include 'nonoverrides/components/metadata/inner_head.html' %}
     </head>
     <body class="min-h-screen bg-base-300">
         {% block body %}
