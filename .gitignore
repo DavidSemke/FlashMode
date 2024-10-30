@@ -3,11 +3,13 @@
 *.pyc
 __pycache__
 local_settings.py
-
 .env
 db.sqlite3
 Dockerfile
 
-# Ignore CDN files
-src/staticfiles/vendors
+# CDN files
+src/static/vendors
 local_cdn
+
+# Node
+node_modules

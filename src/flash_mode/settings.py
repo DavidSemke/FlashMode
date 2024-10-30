@@ -185,7 +185,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 BASE_STATIC_DIR = BASE_SRC_DIR / "static"
-# STATICFILES_VENDOR_DIR = BASE_STATIC_DIR / "vendors"
+STATIC_VENDOR_DIR = BASE_STATIC_DIR / "vendors"
 
 # Source(s) for python manage.py collectstatic
 STATICFILES_DIRS = [
