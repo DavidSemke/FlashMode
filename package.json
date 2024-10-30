@@ -1,0 +1,21 @@
+{
+  "name": "flashmode",
+  "version": "1.0.0",
+  "description": "Flashcard app for studying.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build_watch": "npx tailwindcss -i src/static/styles/input.css -o src/static/styles/output.css --watch",
+    "build": "npx tailwindcss -i src/static/styles/input.css -o src/static/styles/output.css --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.9",
+    "autoprefixer": "^10.4.20",
+    "daisyui": "^4.12.14",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14"
+  }
+}
