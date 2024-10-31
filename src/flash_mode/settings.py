@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from decouple import config
 from pathlib import Path
+import sys
 
 # Build paths inside the project like this: BASE_SRC_DIR / 'subdir'.
 BASE_SRC_DIR = Path(__file__).resolve().parent.parent
@@ -34,15 +35,17 @@ MANAGERS=ADMINS
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 DEBUG = config('DJANGO_DEBUG', cast=bool)
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+    'localhost'
+]
+
 ALLOWED_HOSTS = [
     # '.railway.app'
 ]
 
 if DEBUG:
-    ALLOWED_HOSTS += [
-        '127.0.0.1',
-        'localhost'
-    ]
+    ALLOWED_HOSTS += INTERNAL_IPS.copy()
 
 
 # Application definition
@@ -79,6 +82,18 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+TESTING = "test" in sys.argv
+
+if not TESTING:
+    INSTALLED_APPS = [
+        *INSTALLED_APPS,
+        "debug_toolbar",
+    ]
+    MIDDLEWARE = [
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+        *MIDDLEWARE,
+    ]
 
 ROOT_URLCONF = "flash_mode.urls"
 
