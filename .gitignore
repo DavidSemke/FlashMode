@@ -13,3 +13,6 @@ local_cdn
 
 # Node
 node_modules
+
+# Ruff
+.ruff_cache
