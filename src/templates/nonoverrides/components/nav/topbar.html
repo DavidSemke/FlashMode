@@ -1,48 +1,47 @@
 {% load static %}
 
 <nav>
-    <a href="{% url 'home' %}">
-      <img 
-        src="{% static 'images/flashmode_logo.png' %}"
-        alt="FlashMode Logo"
-        class="h-8"
-      />
-        <span>
-          FlashMode
-        </span>
-    </a>
-    <button 
-      type="button" 
-      class=""
-    >
-        Open menu
-    </button>
-    <div>
-      <ul>
+  <a href="{% url 'home' %}">
+    <img
+      src="{% static 'images/flashmode_logo.png' %}"
+      alt="FlashMode Logo"
+      class="h-8"
+    />
+    <span>
+      FlashMode
+    </span>
+  </a>
+  <button
+    type="button"
+    class=""
+  >
+    Open menu
+  </button>
+  <div>
+    <ul>
+      <li>
+        <a
+          href="{% url 'home' %}"
+        >
+          Home
+        </a>
+      </li>
+      <li>
+        <a
+          href="{% url 'dashboard:home' %}"
+        >
+          Dashboard
+        </a>
+      </li>
+      {% if not request.user.is_authenticated %}
         <li>
-          <a 
-            href="{% url 'home' %}"
-          >
-            Home
-          </a>
-        </li>
-        <li>
-          <a 
-            href="{% url 'dashboard:home' %}"
-          >
-            Dashboard
-          </a>
-        </li>
-        {% if not request.user.is_authenticated %}
-        <li>
-          <a 
+          <a
             href="{% url 'account_login' %}"
           >
             Log in
           </a>
         </li>
-        {% endif %}
-      </ul>
-    </div>
+      {% endif %}
+    </ul>
+  </div>
 </nav>
-  

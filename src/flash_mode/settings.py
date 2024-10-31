@@ -10,35 +10,33 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-from decouple import config
-from pathlib import Path
 import sys
+from pathlib import Path
+
+from decouple import config
 
 # Build paths inside the project like this: BASE_SRC_DIR / 'subdir'.
 BASE_SRC_DIR = Path(__file__).resolve().parent.parent
 
 # Email config
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
-EMAIL_PORT = config('EMAIL_PORT', default='587')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool, default=True)
-EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool, default=False)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=None)
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default=None)
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = config("EMAIL_HOST", default="smtp.gmail.com")
+EMAIL_PORT = config("EMAIL_PORT", default="587")
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default=True)
+EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool, default=False)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", default=None)
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default=None)
 
-ADMINS = [('TestSubject', EMAIL_HOST_USER)] if EMAIL_HOST_USER else []
-MANAGERS=ADMINS
+ADMINS = [("TestSubject", EMAIL_HOST_USER)] if EMAIL_HOST_USER else []
+MANAGERS = ADMINS
 
 # For production, see:
 # https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-SECRET_KEY = config('DJANGO_SECRET_KEY')
-DEBUG = config('DJANGO_DEBUG', cast=bool)
+SECRET_KEY = config("DJANGO_SECRET_KEY")
+DEBUG = config("DJANGO_DEBUG", cast=bool)
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-    'localhost'
-]
+INTERNAL_IPS = ["127.0.0.1", "localhost"]
 
 ALLOWED_HOSTS = [
     # '.railway.app'
@@ -62,14 +60,14 @@ INSTALLED_APPS = [
     "commando.apps.CommandoConfig",
     # Third party apps
     "whitenoise.runserver_nostatic",
-    "allauth_ui", # Put allauth_ui before allauth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.github',
+    "allauth_ui",  # Put allauth_ui before allauth
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.github",
     "widget_tweaks",
     "slippers",
-    "django_browser_reload"
+    "django_browser_reload",
 ]
 
 MIDDLEWARE = [
@@ -128,16 +126,17 @@ DATABASES = {
     }
 }
 
-CONN_MAX_AGE = config('CONN_MAX_AGE', default=30, cast=int)
-DATABASE_URL = config('DATABASE_URL', default=None) 
+CONN_MAX_AGE = config("CONN_MAX_AGE", default=30, cast=int)
+DATABASE_URL = config("DATABASE_URL", default=None)
 
 if DATABASE_URL is not None:
     import dj_database_url
+
     DATABASES = {
         "default": dj_database_url.config(
             default=str(DATABASE_URL),
             conn_max_age=CONN_MAX_AGE,
-            conn_health_checks=True
+            conn_health_checks=True,
         )
     }
 
@@ -164,25 +163,20 @@ AUTH_PASSWORD_VALIDATORS = [
 ALLAUTH_UI_THEME = "light"
 
 # Allauth Config
-LOGIN_REDIRECT_URL = '/dashboard'
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_EMAIL_SUBJECT_PREFIX = '[FlashMode] '
+LOGIN_REDIRECT_URL = "/dashboard"
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[FlashMode] "
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
+    "django.contrib.auth.backends.ModelBackend",
     # `allauth` specific authentication methods, such as login by email
-    'allauth.account.auth_backends.AuthenticationBackend'
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-SOCIALACCOUNT_PROVIDERS = {
-    'github': {
-        'VERIFIED_EMAIL': True
-    }
-}
+SOCIALACCOUNT_PROVIDERS = {"github": {"VERIFIED_EMAIL": True}}
 
 
 # Internationalization
@@ -205,9 +199,7 @@ BASE_STATIC_DIR = BASE_SRC_DIR / "static"
 STATIC_VENDOR_DIR = BASE_STATIC_DIR / "vendors"
 
 # Source(s) for python manage.py collectstatic
-STATICFILES_DIRS = [
-    BASE_STATIC_DIR
-]
+STATICFILES_DIRS = [BASE_STATIC_DIR]
 
 # Output for python manage.py collectstatic
 # Placed outside src folder
@@ -230,7 +222,7 @@ LOGGING = {
     "formatters": {"rich": {"datefmt": "[%X]"}},
     "handlers": {
         "console": {
-            "level": config('DJANGO_LOG_LEVEL', default='INFO'),
+            "level": config("DJANGO_LOG_LEVEL", default="INFO"),
             "class": "rich.logging.RichHandler",
             "formatter": "rich",
             "rich_tracebacks": True,

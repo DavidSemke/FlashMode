@@ -1,10 +1,12 @@
-import requests
 from pathlib import Path
 
-def download_to_local(url:str, out_path:Path, parent_mkdir:bool=True):
+import requests
+
+
+def download_to_local(url: str, out_path: Path, parent_mkdir: bool = True):
     if parent_mkdir:
         out_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     try:
         res = requests.get(url)
         res.raise_for_status()
@@ -13,6 +15,6 @@ def download_to_local(url:str, out_path:Path, parent_mkdir:bool=True):
 
         return True
     except requests.RequestException as e:
-        print(f'Failed to download {url}: {e}')
+        print(f"Failed to download {url}: {e}")
 
         return False
