@@ -3,7 +3,7 @@
 {% load static %}
 {% load allauth_ui %}
 <!DOCTYPE html>
-<html data-theme="{% allauth_ui_theme %}">
+<html lang="en" data-theme="{% allauth_ui_theme %}">
     <head>
         {% block extra_head %}
             <link rel="stylesheet" href="{% static 'allauth_ui/output.css' %}">
@@ -51,9 +51,9 @@
                     {% endif %}
                 {% endif %}
             </div>
-            <script src="{% static "theme.js" %}"></script>
         {% endblock body %}
         {% block extra_body %}
+            {% include 'nonoverrides/components/metadata/scripts.html' %}
         {% endblock extra_body %}
     </body>
 </html>

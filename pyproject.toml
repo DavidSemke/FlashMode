@@ -17,6 +17,7 @@ django-allauth = {extras = ["socialaccount"], version = "^65.0.2"}
 django-allauth-ui = "^1.5.0"
 django-widget-tweaks = "^1.5.0"
 slippers = "^0.6.2"
+rich = "^13.9.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"

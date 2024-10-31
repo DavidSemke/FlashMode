@@ -18,8 +18,8 @@ BASE_SRC_DIR = Path(__file__).resolve().parent.parent
 
 # Email config
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST', cast=str, default='smtp.gmail.com')
-EMAIL_PORT = config('EMAIL_PORT', cast=str, default='587')
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = config('EMAIL_PORT', default='587')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool, default=True)
 EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool, default=False)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=None)
@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     "commando.apps.CommandoConfig",
     # Third party apps
     "whitenoise.runserver_nostatic",
-    "allauth_ui",
+    "allauth_ui", # Put allauth_ui before allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -205,4 +205,20 @@ STORAGES = {
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {"rich": {"datefmt": "[%X]"}},
+    "handlers": {
+        "console": {
+            "level": config('DJANGO_LOG_LEVEL', default='INFO'),
+            "class": "rich.logging.RichHandler",
+            "formatter": "rich",
+            "rich_tracebacks": True,
+            "tracebacks_show_locals": True,
+        }
+    },
+    "loggers": {"django": {"handlers": ["console"]}},
 }
