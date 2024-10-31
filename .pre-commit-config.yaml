@@ -33,4 +33,5 @@ repos:
     hooks:
       - id: djhtml
       - id: djcss
+        exclude: output.css
       - id: djjs
