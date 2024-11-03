@@ -56,8 +56,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # My apps
-    "dashboard.apps.DashboardConfig",
     "commando.apps.CommandoConfig",
+    "dashboard.apps.ProfileConfig",
     # Third party apps
     "whitenoise.runserver_nostatic",
     "allauth_ui",  # Put allauth_ui before allauth
