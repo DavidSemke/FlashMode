@@ -1,7 +1,7 @@
 {% load static %}
 
 <nav>
-  <a href="{% url 'home' %}">
+  <a href="{% url 'index' %}">
     <img
       src="{% static 'images/flashmode_logo.png' %}"
       alt="FlashMode Logo"
@@ -21,18 +21,20 @@
     <ul>
       <li>
         <a
-          href="{% url 'home' %}"
+          href="{% url 'index' %}"
         >
           Home
         </a>
       </li>
-      <li>
-        <a
-          href="{% url 'dashboard:home' %}"
-        >
-          Dashboard
-        </a>
-      </li>
+      {% if request.user.is_authenticated %}
+        <li>
+          <a
+            href="{% url 'dashboard:index' %}"
+          >
+            Dashboard
+          </a>
+        </li>
+      {% endif %}
       {% if not request.user.is_authenticated %}
         <li>
           <a

@@ -6,8 +6,6 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
-# from .models import Choice, Question
-
 
 @login_required
 def index(request):

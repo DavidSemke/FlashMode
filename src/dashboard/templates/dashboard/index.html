@@ -2,7 +2,7 @@
 
 {% block main %}
     <main>
-        <h1>Hi, NAME</h1>
+        <h1>Hi {{ request.user.username }}</h1>
         <section>
             <h2>Weekly Goal</h2>
             <div>Progress bar</div>

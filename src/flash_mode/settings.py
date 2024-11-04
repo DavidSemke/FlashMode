@@ -57,7 +57,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # My apps
     "commando.apps.CommandoConfig",
-    "dashboard.apps.ProfileConfig",
+    "decks.apps.DecksConfig",
+    "dashboard.apps.DashboardConfig",
+    "study_sessions.apps.StudySessionsConfig",
     # Third party apps
     "whitenoise.runserver_nostatic",
     "allauth_ui",  # Put allauth_ui before allauth
@@ -158,9 +160,6 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
-
-# Allauth UI Config
-ALLAUTH_UI_THEME = "light"
 
 # Allauth Config
 LOGIN_REDIRECT_URL = "/dashboard"
