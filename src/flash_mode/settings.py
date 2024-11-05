@@ -125,6 +125,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_SRC_DIR / "db.sqlite3",
+        # Remove this if it becomes a bottleneck
+        "ATOMIC_REQUESTS": True,
     }
 }
 
