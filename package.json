@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build_watch": "npx tailwindcss -i src/static/styles/input.css -o src/static/styles/output.css --watch",
-    "build": "npx tailwindcss -i src/static/styles/input.css -o src/static/styles/output.css --minify"
+    "tw_watch": "npx tailwindcss -i src/static/styles/input.css -o src/static/styles/output.css --watch",
+    "tw_build": "npx tailwindcss -i src/static/styles/input.css -o src/static/styles/output.css --minify"
   },
   "keywords": [],
   "author": "",
