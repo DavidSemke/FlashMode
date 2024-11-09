@@ -1,9 +1,12 @@
 [tool.poetry]
 name = "flashmode"
 version = "0.1.0"
-description = ""
+description = "A web app for studying with flash cards."
 authors = ["David <david@semke.ca>"]
 readme = "README.md"
+packages = [
+    { include = 'src'}
+]
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -26,11 +29,14 @@ django-browser-reload = "^1.17.0"
 rich = "^13.9.3"
 pre-commit = "^4.0.1"
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.poetry.scripts]
+dev = "src.scripts:dev"
 
 [tool.ruff.lint]
 ignore = [
     "F401" # unused imports
 ]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
