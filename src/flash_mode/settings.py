@@ -45,9 +45,6 @@ ALLOWED_HOSTS = [
 if DEBUG:
     ALLOWED_HOSTS += INTERNAL_IPS.copy()
 
-
-# Application definition
-
 INSTALLED_APPS = [
     # My apps
     "commando.apps.CommandoConfig",
@@ -61,8 +58,9 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.github",
-    "widget_tweaks",
-    "slippers",
+    "widget_tweaks",  # Needed for allauth ui
+    "slippers",  # Needed for allauth ui
+    "django_cotton",
     "django_browser_reload",
     # Django apps
     "django.contrib.admin",
@@ -112,13 +110,14 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
-            "builtins": ["slippers.templatetags.slippers"],
         },
     },
 ]
 
-WSGI_APPLICATION = "flash_mode.wsgi.application"
+# Django-cotton
+COTTON_DIR = BASE_SRC_DIR / "templates/nonoverrides/components"
 
+WSGI_APPLICATION = "flash_mode.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
