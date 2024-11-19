@@ -3,22 +3,38 @@
 @tailwind utilities;
 
 @layer base {
+    a {
+        @apply link link-secondary;
+    }
+
+    button {
+        @apply btn btn-secondary;
+    }
+
     h1 {
-        @apply text-4xl font-bold;
+        @apply text-5xl font-bold;
     }
 
     h2 {
-        @apply text-3xl font-semibold;
+        @apply text-4xl font-semibold;
+    }
+
+    input {
+        @apply input input-secondary input-ghost input-bordered;
     }
 
     main {
         @apply flex w-full flex-col items-center gap-8;
     }
+
+    svg {
+        @apply fill-none stroke-2 stroke-current;
+    }
 }
 
 @layer components {
     .column-view {
-        @apply w-full sm:w-4/5 md:w-3/4 lg:w-3/5 xl:w-1/2;
+        @apply w-full sm:w-4/5 md:w-3/4 lg:w-3/5;
     }
 }
 
