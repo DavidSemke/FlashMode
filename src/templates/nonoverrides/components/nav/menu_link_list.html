@@ -1,0 +1,27 @@
+<ul {{ attrs }}>
+    <li>
+        <a
+            href="{% url 'index' %}"
+        >
+            Home
+        </a>
+    </li>
+    {% if request.user.is_authenticated %}
+        <li>
+            <a
+                href="{% url 'dashboard:index' %}"
+            >
+                Dashboard
+            </a>
+        </li>
+    {% endif %}
+    {% if not request.user.is_authenticated %}
+        <li>
+            <a
+                href="{% url 'account_login' %}"
+            >
+                Log in
+            </a>
+        </li>
+    {% endif %}
+</ul>

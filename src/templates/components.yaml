@@ -1,4 +1,0 @@
-components:
-    cards_svg: "nonoverrides/components/svg/cards.html"
-    chart_svg: "nonoverrides/components/svg/chart.html"
-    checklist_svg: "nonoverrides/components/svg/checklist.html"

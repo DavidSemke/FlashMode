@@ -5,7 +5,7 @@
     {% if messages %}
         {% include 'nonoverrides/components/message/messages.html' with messages=messages %}
     {% endif %}
-    <div>
+    <div class='column-view m-auto py-8'>
         {% block main %}{% endblock %}
     </div>
 {% endblock %}

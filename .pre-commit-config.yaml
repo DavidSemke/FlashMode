@@ -22,11 +22,6 @@ repos:
         args: [--select, I, --fix]
       - id: ruff-format
         name: Format with ruff
-  # Lint Django templates
-  - repo: https://github.com/thibaudcolas/curlylint
-    rev: v0.13.1
-    hooks:
-      - id: curlylint
   # Format Django templates
   - repo: https://github.com/rtts/djhtml
     rev: 3.0.7

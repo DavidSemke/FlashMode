@@ -5,7 +5,7 @@ import daisyui from "daisyui"
 module.exports = {
   content: [
     './src/templates/**/*.html',
-    './src/**/templates/**/*.html'
+    './src/**/templates/**/*.html',
   ],
   theme: {
     extend: {},
