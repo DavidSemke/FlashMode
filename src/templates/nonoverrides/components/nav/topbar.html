@@ -16,18 +16,18 @@
 
 	<!-- Search -->
         <div class="relative flex w-full max-w-64 flex-col gap-1">
-		{% comment %} <c-svg.search_icon aria-hidden="true" class="absolute left-2.5 top-1/2 size-5 -translate-y-1/2"/> {% endcomment %}
+            <c-svg.search_icon aria-hidden="true" class="absolute left-2.5 top-1/2 size-5 -translate-y-1/2"/>
             <input type="search" name="search" placeholder="Search" aria-label="search" class="input input-secondary input-ghost input-bordered py-2.5 pl-10 pr-2"/>
         </div>
     </div>
 
 	<!-- Desktop Menu -->
-	{% comment %} <c-nav.menu_link_list class="menu menu-horizontal hidden md:flex"/> {% endcomment %}
+    <c-nav.menu_link_list class="menu menu-horizontal hidden md:flex"/>
     <button @click="menuIsOpen = !menuIsOpen" :aria-expanded="menuIsOpen" :class="menuIsOpen ? 'fixed top-6 right-6 z-20' : null" type="button" class="flex md:hidden" aria-label="Menu button" aria-controls="menu">
-		{% comment %} <c-svg.menu_icon x-cloak x-show="!menuIsOpen" aria-hidden="true" class="size-6" />
-		<c-svg.x_icon x-cloak x-show="menuIsOpen" aria-hidden="true" class="size-6" /> {% endcomment %}
+        <c-svg.menu_icon x-cloak x-show="!menuIsOpen" aria-hidden="true" class="size-6" />
+        <c-svg.x_icon x-cloak x-show="menuIsOpen" aria-hidden="true" class="size-6" />
     </button>
 
   	<!-- Mobile Menu -->
-	{% comment %} <c-nav.menu_link_list x-cloak x-show="menuIsOpen" x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="menu" class="menu fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-base-content rounded-b-md border-b border-base-content bg-base-300 px-6 pb-6 pt-20 md:hidden"/> {% endcomment %}
+    <c-nav.menu_link_list x-cloak x-show="menuIsOpen" x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="menu" class="menu fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-base-content rounded-b-md border-b border-base-content bg-base-300 px-6 pb-6 pt-20 md:hidden"/>
 </nav>
