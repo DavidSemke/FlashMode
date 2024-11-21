@@ -11,7 +11,7 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    tailwind_forms,
+    tailwind_forms({ strategy: 'class' }),
     daisyui
   ],
   daisyui: {

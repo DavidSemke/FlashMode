@@ -19,6 +19,10 @@
         @apply text-4xl font-semibold;
     }
 
+    input {
+        @apply input input-secondary input-ghost input-bordered;
+    }
+
     main {
         @apply flex w-full flex-col items-center gap-8;
     }
