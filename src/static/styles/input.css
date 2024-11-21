@@ -2,13 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --h-topbar: 5.5rem;
+    --h-footer: 6.5rem;
+}
+
 @layer base {
     a {
-        @apply link link-secondary;
+        @apply link;
     }
 
     button {
-        @apply btn btn-secondary;
+        @apply btn;
     }
 
     h1 {
@@ -20,7 +25,7 @@
     }
 
     input {
-        @apply input input-secondary input-ghost input-bordered;
+        @apply input input-ghost input-bordered;
     }
 
     main {
@@ -38,4 +43,8 @@
     }
 }
 
-@layer utilities {}
+@layer utilities {
+    .min-h-screen-ex-topbar-ex-footer {
+        @apply min-h-[calc(100vh-var(--h-topbar)-var(--h-footer))];
+    }
+}

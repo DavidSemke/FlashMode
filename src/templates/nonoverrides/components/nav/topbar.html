@@ -1,6 +1,6 @@
 {% load static %}
 
-<nav x-data="{ menuIsOpen: false }" @click.away="menuIsOpen = false" class="flex items-center justify-between md:justify-around bg-base-300 border-b border-base-content px-6 py-4" aria-label="FlashMode navbar">
+<nav x-data="{ menuIsOpen: false }" @click.away="menuIsOpen = false" class="flex items-center justify-between md:justify-around h-[--h-topbar] bg-base-300 border-b border-base-content px-6 py-4" aria-label="FlashMode navbar">
     <div class='flex justify-center gap-8'>
 	<!-- Brand Logo -->
         <a href="{% url 'index' %}" class='link-primary flex-none flex items-center gap-4 text-primary'>
@@ -17,13 +17,13 @@
 	<!-- Search -->
         <div class="relative flex w-full max-w-64 flex-col gap-1">
             <c-svg.search_icon aria-hidden="true" class="absolute left-2.5 top-1/2 size-5 -translate-y-1/2"/>
-            <input type="search" name="search" placeholder="Search" aria-label="search" class="py-2.5 pl-10 pr-2"/>
+            <input type="search" name="search" placeholder="Find a deck" aria-label="search" class="input-secondary py-2.5 pl-10 pr-2"/>
         </div>
     </div>
 
 	<!-- Desktop Menu -->
     <c-nav.menu_link_list class="menu menu-horizontal hidden md:flex"/>
-    <button @click="menuIsOpen = !menuIsOpen" :aria-expanded="menuIsOpen" :class="menuIsOpen ? 'fixed top-6 right-6 z-20' : null" type="button" class="flex md:hidden" aria-label="Menu button" aria-controls="menu">
+    <button @click="menuIsOpen = !menuIsOpen" :aria-expanded="menuIsOpen" :class="menuIsOpen ? 'fixed top-6 right-6 z-20' : null" type="button" class="btn-secondary flex md:hidden" aria-label="Menu button" aria-controls="menu">
         <c-svg.menu_icon x-cloak x-show="!menuIsOpen" aria-hidden="true" class="size-6" />
         <c-svg.x_icon x-cloak x-show="menuIsOpen" aria-hidden="true" class="size-6" />
     </button>
