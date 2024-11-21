@@ -15,7 +15,6 @@ from pathlib import Path
 
 from decouple import config
 
-# Build paths inside the project like this: BASE_SRC_DIR / 'subdir'.
 BASE_SRC_DIR = Path(__file__).resolve().parent.parent
 
 # Email config
@@ -218,6 +217,7 @@ STORAGES = {
     },
 }
 
+# Terminal logging
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -233,3 +233,6 @@ LOGGING = {
     },
     "loggers": {"django": {"handlers": ["console"]}},
 }
+
+# Slippers is only used by django-allauth-ui, so components.yaml is not needed
+SILENCED_SYSTEM_CHECKS = ["slippers.E001"]
