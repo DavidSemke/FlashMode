@@ -114,7 +114,7 @@ TEMPLATES = [
 ]
 
 # Django-cotton
-COTTON_DIR = BASE_SRC_DIR / "templates/nonoverrides/components"
+COTTON_DIR = BASE_SRC_DIR / "templates/core/components"
 
 WSGI_APPLICATION = "flash_mode.wsgi.application"
 
