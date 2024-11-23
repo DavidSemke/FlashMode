@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.views import View
 
 
-def index(request):
-    return render(request, "core/index.html", {"head_title": "FlashMode"})
+class IndexView(View):
+    def get(self, request):
+        return render(request, "core/index.html", {"head_title": "FlashMode"})
