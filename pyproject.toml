@@ -29,6 +29,7 @@ django-debug-toolbar = "^4.4.6"
 django-browser-reload = "^1.17.0"
 rich = "^13.9.3"
 pre-commit = "^4.0.1"
+factory-boy = "^3.3.1"
 
 [tool.poetry.scripts]
 dev = "src.scripts:dev"
