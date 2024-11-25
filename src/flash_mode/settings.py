@@ -46,10 +46,10 @@ if DEBUG:
 
 INSTALLED_APPS = [
     # My apps
-    "commando.apps.CommandoConfig",
-    "decks.apps.DecksConfig",
-    "dashboard.apps.DashboardConfig",
-    "study_sessions.apps.StudySessionsConfig",
+    "apps.commando",
+    "apps.decks",
+    "apps.dashboard",
+    "apps.study_sessions",
     # Third party apps
     "whitenoise.runserver_nostatic",
     "allauth_ui",  # Put allauth_ui before allauth

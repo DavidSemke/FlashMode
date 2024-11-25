@@ -24,7 +24,8 @@ from .views import IndexView
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
-    path("dashboard/", include("dashboard.urls")),
+    path("dashboard/", include("apps.dashboard.urls")),
+    path("decks/", include("apps.decks.urls")),
     path("accounts/", include("allauth.urls")),
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
