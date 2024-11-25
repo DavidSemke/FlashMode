@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-import utils
+from ..... import utils
 
 STATIC_VENDOR_DIR = getattr(settings, "STATIC_VENDOR_DIR")
 
@@ -12,6 +12,8 @@ VENDOR_STATICFILES = {
 
 
 class Command(BaseCommand):
+    help = "Download vendor files."
+
     def handle(self, *args, **options):
         self.stdout.write("Downloading vendor static files")
         completed_urls = []
