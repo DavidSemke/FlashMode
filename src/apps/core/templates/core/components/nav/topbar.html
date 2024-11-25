@@ -3,7 +3,7 @@
 <nav x-data="{ menuIsOpen: false }" @click.away="menuIsOpen = false" class="flex items-center justify-between md:justify-around h-[--h-topbar] bg-base-300 border-b border-base-content px-6 py-4" aria-label="FlashMode navbar">
     <div class='flex justify-center gap-8'>
 	<!-- Brand Logo -->
-        <a href="{% url 'index' %}" class='link-primary flex-none flex items-center gap-4 text-primary'>
+        <a href="{% url 'core:index' %}" class='link-primary flex-none flex items-center gap-4 text-primary'>
             <img
                 src="{% static 'images/flashmode_logo.png' %}"
                 alt="FlashMode Logo"

@@ -20,10 +20,8 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 
-from .views import IndexView
-
 urlpatterns = [
-    path("", IndexView.as_view(), name="index"),
+    path("", include("apps.core.urls")),
     path("dashboard/", include("apps.dashboard.urls")),
     path("decks/", include("apps.decks.urls")),
     path("accounts/", include("allauth.urls")),

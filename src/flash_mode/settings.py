@@ -47,6 +47,7 @@ if DEBUG:
 INSTALLED_APPS = [
     # My apps
     "apps.commando",
+    "apps.core",
     "apps.decks",
     "apps.dashboard",
     "apps.study_sessions",
@@ -114,7 +115,7 @@ TEMPLATES = [
 ]
 
 # Django-cotton
-COTTON_DIR = BASE_SRC_DIR / "templates/core/components"
+COTTON_DIR = BASE_SRC_DIR / "apps/core/templates/core/components"
 
 WSGI_APPLICATION = "flash_mode.wsgi.application"
 
