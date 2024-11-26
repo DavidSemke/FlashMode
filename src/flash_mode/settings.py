@@ -17,17 +17,19 @@ from decouple import config
 
 BASE_SRC_DIR = Path(__file__).resolve().parent.parent
 
-# Email config
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = config("EMAIL_HOST", default="smtp.gmail.com")
-EMAIL_PORT = config("EMAIL_PORT", default="587")
-EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default=True)
-EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool, default=False)
-EMAIL_HOST_USER = config("EMAIL_HOST_USER", default=None)
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default=None)
 
-ADMINS = [("TestSubject", EMAIL_HOST_USER)] if EMAIL_HOST_USER else []
-MANAGERS = ADMINS
+# Email config (disabled)
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = config("EMAIL_HOST", default="smtp.gmail.com")
+# EMAIL_PORT = config("EMAIL_PORT", default="587")
+# EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default=True)
+# EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool, default=False)
+# EMAIL_HOST_USER = config("EMAIL_HOST_USER", default=None)
+# EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default=None)
+# EMAIL_ADMIN_USER = config("EMAIL_ADMIN_USER", default=None)
+
+# ADMINS = [("ADMIN_USER", EMAIL_ADMIN_USER)] if EMAIL_ADMIN_USER else []
+# MANAGERS = ADMINS
 
 # For production, see:
 # https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -166,11 +168,21 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Allauth Config
 LOGIN_REDIRECT_URL = "/dashboard"
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_EMAIL_SUBJECT_PREFIX = "[FlashMode] "
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+ACCOUNT_PRESERVE_USERNAME_CASING = False
+ACCOUNT_USERNAME_MIN_LENGTH = 6
+
+# If email backend is set up:
+# ACCOUNT_AUTHENTICATION_METHOD = "email"
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# ACCOUNT_EMAIL_SUBJECT_PREFIX = "[FlashMode] "
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+# Else:
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
@@ -178,7 +190,7 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-SOCIALACCOUNT_PROVIDERS = {"github": {"VERIFIED_EMAIL": True}}
+# SOCIALACCOUNT_PROVIDERS = {"github": {"VERIFIED_EMAIL": True}}
 
 
 # Internationalization
