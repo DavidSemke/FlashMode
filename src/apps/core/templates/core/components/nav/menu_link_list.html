@@ -16,6 +16,14 @@
                 Dashboard
             </a>
         </li>
+        <li>
+            <a
+                href="{% url 'account_logout' %}"
+                class='link-secondary'
+            >
+                Log Out
+            </a>
+        </li>
     {% endif %}
     {% if not request.user.is_authenticated %}
         <li>
@@ -23,7 +31,7 @@
                 href="{% url 'account_login' %}"
                 class='link-secondary'
             >
-                Log in
+                Log In
             </a>
         </li>
     {% endif %}
