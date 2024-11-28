@@ -3,9 +3,11 @@ from factory.django import DjangoModelFactory
 
 from .models import Profile
 
-fake = Faker()
 
-
+# Foreign key handled by UserFactory
 class ProfileFactory(DjangoModelFactory):
     class Meta:
         model = Profile
+
+    streak = Faker("random_int", min=0, max=999)
+    weekly_card_count_goal = Faker("random_int", min=0, max=999)
