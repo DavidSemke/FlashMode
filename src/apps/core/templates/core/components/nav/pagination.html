@@ -1,0 +1,66 @@
+<c-vars page_obj />
+
+<nav aria-label="pagination">
+    <ul class="flex flex-shrink-0 items-center gap-2 text-sm font-medium">
+        {% if page_obj.has_previous %}
+            <li>
+                <a
+                    href="?page={{ page_obj.previous_page_number }}"
+                    class="link-secondary flex items-center rounded-md p-1"
+                    aria-label="previous page"
+                >
+                    <c-svg.chevron_down_icon aria-hidden="true" class='size-6 rotate-90' />
+                    <span>Previous</span>
+                </a>
+            </li>
+            <li class='flex items-center'>
+                <a
+                    href="?page=1"
+                    class="link-accent flex size-6 items-center justify-center rounded-md p-1"
+                    aria-label="first page"
+                >
+                    1
+                </a>
+                <div aria-hidden="true" class='pointer-events-none font-bold'>
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                </div>
+            </li>
+        {% endif %}
+
+        <li
+            class="flex size-6 items-center justify-center rounded-md p-1 font-bold bg-accent text-accent-content"
+            aria-current="page"
+        >
+            {{ page_obj.number }}
+        </li>
+
+        {% if page_obj.has_next %}
+            <li class='flex items-center'>
+                <div aria-hidden="true" class='pointer-events-none font-bold'>
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                </div>
+                <a
+                    href="?page={{ page_obj.paginator.num_pages }}"
+                    class="link-accent flex size-6 items-center justify-center rounded-md p-1"
+                    aria-label="last page"
+                >
+                    {{ page_obj.paginator.num_pages }}
+                </a>
+            </li>
+            <li>
+                <a
+                    href="?page={{ page_obj.next_page_number }}"
+                    class="link-secondary flex items-center rounded-md p-1"
+                    aria-label="next page"
+                >
+                    <span>Next</span>
+                    <c-svg.chevron_down_icon aria-hidden="true" class='size-6 -rotate-90' />
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
