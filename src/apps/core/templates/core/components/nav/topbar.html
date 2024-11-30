@@ -1,33 +1,49 @@
 {% load static %}
 
-<nav x-data="{ menuIsOpen: false }" @click.away="menuIsOpen = false" class="flex items-center justify-between md:justify-around h-[--h-topbar] bg-base-300 border-b border-base-content px-6 py-4" aria-label="FlashMode navbar">
-    <div class='flex justify-center gap-8'>
-	<!-- Brand Logo -->
-        <a href="{% url 'core:index' %}" class='link-primary flex-none flex items-center gap-4 text-primary'>
-            <img
-                src="{% static 'images/flashmode_logo.png' %}"
-                alt="FlashMode Logo"
-                class="w-10"
-            />
-            <span>
-                FlashMode
-            </span>
-        </a>
-
-	<!-- Search -->
-        <div class="relative flex w-full max-w-64 flex-col gap-1">
-            <c-svg.search_icon aria-hidden="true" class="absolute left-2.5 top-1/2 size-5 -translate-y-1/2"/>
-            <input type="search" name="search" placeholder="Find a deck" aria-label="search" class="input-secondary py-2.5 pl-10 pr-2"/>
+<div
+    x-data="{ menuIsOpen: false, searchbarIsOpen: false, query: '' }"
+    @click.away="menuIsOpen = false; searchbarIsOpen = false"
+    class="sticky top-0 z-20 flex justify-center h-[--h-topbar]"
+>
+    <nav
+        class="flex items-center justify-between md:justify-around w-full z-10 bg-base-300 border-b border-base-content px-4 py-2"
+        aria-label="FlashMode navbar"
+    >
+        <div class='flex justify-center gap-8'>
+            <!-- Brand logo -->
+            <a href="{% url 'core:index' %}" class='link-primary flex-none flex items-center gap-2 text-primary'>
+                <img
+                    src="{% static 'images/flashmode_logo.png' %}"
+                    alt="FlashMode Logo"
+                    class="size-10"
+                />
+                <span>
+                    FlashMode
+                </span>
+            </a>
+            <!-- Desktop searchbar -->
+            <c-search.searchbar placeholder="Find a deck" class='hidden sm:block'/>
         </div>
-    </div>
 
-	<!-- Desktop Menu -->
-    <c-nav.menu_link_list class="menu menu-horizontal hidden md:flex"/>
-    <button @click="menuIsOpen = !menuIsOpen" :aria-expanded="menuIsOpen" :class="menuIsOpen ? 'fixed top-6 right-6 z-20' : null" type="button" class="btn-secondary flex md:hidden" aria-label="Menu button" aria-controls="menu">
-        <c-svg.menu_icon x-cloak x-show="!menuIsOpen" aria-hidden="true" class="size-6" />
-        <c-svg.x_icon x-cloak x-show="menuIsOpen" aria-hidden="true" class="size-6" />
-    </button>
+        <!-- Desktop menu -->
+        <c-nav.menu_link_list class="menu menu-horizontal hidden md:flex"/>
+        <div class='flex gap-2 md:hidden'>
+            <!-- Mobile search button -->
+            <button @click="searchbarIsOpen = !searchbarIsOpen" :aria-expanded="searchbarIsOpen" type="button" class="btn-secondary flex sm:hidden" aria-label="Searchbar button" aria-controls="searchbar">
+                <c-svg.search_icon x-cloak x-show='!searchbarIsOpen' aria-hidden="true" class="size-6" />
+                <c-svg.search_off_icon x-cloak x-show='searchbarIsOpen' aria-hidden="true" class="size-6" />
+            </button>
+            <!-- Mobile menu button -->
+            <button @click="menuIsOpen = !menuIsOpen" :aria-expanded="menuIsOpen" :class="menuIsOpen ? 'fixed top-6 right-6 z-20' : null" type="button" class="btn-secondary flex" aria-label="Menu button" aria-controls="menu">
+                <c-svg.menu_icon x-cloak x-show="!menuIsOpen" aria-hidden="true" class="size-6" />
+                <c-svg.x_icon x-cloak x-show="menuIsOpen" aria-hidden="true" class="size-6" />
+            </button>
+        </div>
 
-  	<!-- Mobile Menu -->
-    <c-nav.menu_link_list x-cloak x-show="menuIsOpen" x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="menu" class="menu fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-base-content rounded-b-md border-b border-base-content bg-base-300 px-6 pb-6 pt-20 md:hidden"/>
-</nav>
+        <!-- Mobile menu -->
+        <c-nav.menu_link_list x-cloak x-show="menuIsOpen" x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="menu" class="menu fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-base-content rounded-b-md border-b border-base-content bg-base-300 px-6 pb-6 pt-20 md:hidden"/>
+    </nav>
+
+    <!-- Mobile searchbar -->
+    <c-search.searchbar placeholder="Find a deck" query='query' x-cloak x-show="searchbarIsOpen" x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" class="absolute top-[calc(var(--h-topbar)+1rem)] sm:hidden"/>
+</div>

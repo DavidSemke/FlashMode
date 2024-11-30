@@ -3,8 +3,14 @@
 @tailwind utilities;
 
 :root {
-    --h-topbar: 5.5rem;
-    --h-footer: 6.5rem;
+    /* Breakpoints copy those set by TailwindCSS */
+    --bp-sm: 640px;
+    --bp-md: 768px;
+    --bp-lg: 1024px;
+    --bp-xl: 1280px;
+
+    --h-topbar: 5rem;
+    --h-footer: 6rem;
 }
 
 @layer base {
@@ -25,7 +31,7 @@
     }
 
     input {
-        @apply input input-ghost input-bordered;
+        @apply input input-accent input-bordered bg-black;
     }
 
     main {
@@ -34,6 +40,10 @@
 
     svg {
         @apply fill-none stroke-2 stroke-current;
+    }
+
+    [x-cloak] {
+        @apply !hidden;
     }
 }
 
