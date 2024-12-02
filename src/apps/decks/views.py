@@ -10,13 +10,20 @@ class DeckListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return (
+        queryset = (
             super()
             .get_queryset()
             .select_related("creator")
             .annotate(card_count=Count("cards"))
             .order_by("-create_date")
         )
+
+        query = self.request.GET.get("query")
+
+        if query:
+            queryset = queryset.filter(title__icontains=query)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
