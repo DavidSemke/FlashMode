@@ -3,7 +3,7 @@
 {% block body %}
     <c-nav.topbar />
     <c-message.messages :messages='messages'/>
-    <div class='flex min-h-screen-ex-topbar-ex-footer column-view m-auto py-8'>
+    <div class='flex min-h-screen-ex-topbar-ex-footer column-view m-auto px-4 py-8'>
         {% block main %}{% endblock %}
     </div>
     <c-nav.footer />
