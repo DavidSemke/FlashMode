@@ -7,7 +7,10 @@ class Deck(models.Model):
         settings.AUTH_USER_MODEL, related_name="decks_in_use"
     )
     creator = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="decks_created"
+        settings.AUTH_USER_MODEL,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="decks_created",
     )
     create_date = models.DateField(auto_now_add=True)
     title = models.CharField(max_length=50)
