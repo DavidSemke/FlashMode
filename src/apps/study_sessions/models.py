@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.forms import ValidationError
 
 from ..decks.models import Card, Deck
 
@@ -22,3 +23,17 @@ class Response(models.Model):
         Card, null=True, on_delete=models.SET_NULL, related_name="responses"
     )
     is_correct = models.BooleanField()
+
+    def clean(self):
+        super().clean()
+
+        if (
+            self.card
+            and self.study_session
+            and self.card.deck != self.study_session.deck
+        ):
+            raise ValidationError("Card deck must match study session deck.")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
