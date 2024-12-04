@@ -15,7 +15,7 @@ from pathlib import Path
 
 from decouple import config
 
-BASE_SRC_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Email config (disabled)
@@ -103,7 +103,7 @@ ROOT_URLCONF = "flash_mode.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_SRC_DIR / "templates"],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -117,7 +117,7 @@ TEMPLATES = [
 ]
 
 # Django-cotton
-COTTON_DIR = BASE_SRC_DIR / "apps/core/templates/core/components"
+COTTON_DIR = BASE_DIR / "apps/core/templates/core/components"
 
 WSGI_APPLICATION = "flash_mode.wsgi.application"
 
@@ -127,7 +127,7 @@ WSGI_APPLICATION = "flash_mode.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_SRC_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
         # Remove this if it becomes a bottleneck
         "ATOMIC_REQUESTS": True,
     }
@@ -209,7 +209,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
-BASE_STATIC_DIR = BASE_SRC_DIR / "static"
+BASE_STATIC_DIR = BASE_DIR / "static"
 STATIC_VENDOR_DIR = BASE_STATIC_DIR / "vendors"
 
 # Source(s) for python manage.py collectstatic
@@ -217,7 +217,7 @@ STATICFILES_DIRS = [BASE_STATIC_DIR]
 
 # Output for python manage.py collectstatic
 # Placed outside src folder
-STATIC_ROOT = BASE_SRC_DIR.parent / "local_cdn"
+STATIC_ROOT = BASE_DIR.parent / "local_cdn"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
