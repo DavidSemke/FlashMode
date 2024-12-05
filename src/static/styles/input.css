@@ -22,12 +22,16 @@
         @apply btn;
     }
 
+    dt {
+        @apply font-bold after:content-[':'];
+    }
+
     h1 {
-        @apply text-5xl font-bold;
+        @apply text-3xl sm:text-4xl md:text-5xl font-bold;
     }
 
     h2 {
-        @apply text-4xl font-semibold;
+        @apply text-2xl sm:text-3xl md:text-4xl font-semibold;
     }
 
     input {
@@ -35,7 +39,7 @@
     }
 
     main {
-        @apply flex w-full flex-col items-center gap-8;
+        @apply flex w-full flex-col items-center gap-6;
     }
 
     svg {
