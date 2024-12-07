@@ -1,26 +1,26 @@
 {% extends "core/layouts/nav.html" %}
 
 {% block main %}
-    <main class='flex flex-col justify-center'>
-        <h1 class='h1 text-primary text-center'>Master the flashcard style of studying.</h1>
-        <div class='flex justify-around w-full'>
-            <div class='basis-1/3 flex flex-col items-center gap-4 px-8'>
-                <c-svg.cards_icon class="w-40 text-secondary" />
-                <p class='text-center text-2xl'>Create and collect flash card decks that you want to use to study.</p>
+    <main class='flex flex-col items-center'>
+        <h1 class='text-primary text-center'>Master the flashcard style of studying</h1>
+        <div class='flex flex-col gap-6 sm:gap-0 sm:flex-row [&>div]:basis-1/3 [&>div]:flex [&>div]:flex-col [&>div]:items-center [&>div]:gap-2 [&>div]:px-8'>
+            <div>
+                <c-svg.cards_icon class="size-32 sm:size-40 text-secondary" />
+                <p class='text-center text-xl sm:text-2xl'>Create and collect flash card decks that you want to use to study.</p>
             </div>
-            <div class='basis-1/3 flex flex-col items-center gap-4 px-8'>
-                <c-svg.checklist_icon class="w-40 text-secondary" />
-                <p class='text-center text-2xl'>Test your knowledge in study sessions.</p>
+            <div>
+                <c-svg.checklist_icon class="size-32 sm:size-40 text-secondary" />
+                <p class='text-center text-xl sm:text-2xl'>Test your knowledge in study sessions.</p>
             </div>
-            <div class='basis-1/3 flex flex-col items-center gap-4 px-8'>
-                <c-svg.chart_icon class="w-40 text-secondary" />
-                <p class='text-center text-2xl'>Receive statistical analysis of your studying efforts.</p>
+            <div>
+                <c-svg.chart_icon class="size-32 sm:size-40 text-secondary" />
+                <p class='text-center text-xl sm:text-2xl'>Receive statistical analysis of your studying efforts.</p>
             </div>
         </div>
         <div class='flex flex-col items-center gap-4'>
-            <span class='text-accent text-2xl'>Are you ready to study?</span>
-            <a href="{% url 'account_signup' %}" class='btn btn-secondary hover:text-black text-2xl'>Sign Up</a>
-            <p class='text-xl'>Don't want to make an account? Start a study session without one!</p>
+            <span class='text-accent text-center text-2xl sm:text-3xl'>Are you ready to study?</span>
+            <a href="{% url 'account_signup' %}" class='btn btn-secondary hover:text-black text-xl sm:text-2xl'>Sign Up</a>
+            <p class='text-center text-lg sm:text-xl'>Don't want to make an account? Start a study session without one!</p>
         </div>
     </main>
 {% endblock %}
