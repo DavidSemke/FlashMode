@@ -14,7 +14,7 @@ class Deck(models.Model):
         related_name="decks_created",
     )
     create_date = models.DateField(auto_now_add=True)
-    title = models.CharField(max_length=50, blank=True)
+    title = models.CharField(max_length=50)
     private = models.BooleanField(default=False)
 
     def get_absolute_url(self):
