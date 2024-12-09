@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 
 
 class Deck(models.Model):
@@ -13,8 +14,11 @@ class Deck(models.Model):
         related_name="decks_created",
     )
     create_date = models.DateField(auto_now_add=True)
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, blank=True)
     private = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse("deck_detail", kwargs={"pk": self.pk})
 
 
 class Card(models.Model):
