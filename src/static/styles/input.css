@@ -27,19 +27,35 @@
     }
 
     h1 {
-        @apply text-3xl sm:text-4xl md:text-5xl font-bold;
+        @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold;
     }
 
     h2 {
-        @apply text-2xl sm:text-3xl md:text-4xl font-semibold;
+        @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold;
     }
 
     input {
-        @apply input input-accent input-bordered bg-black;
+        @apply input input-accent input-bordered;
+    }
+
+    input[type=checkbox] {
+        @apply checkbox checkbox-accent size-8;
+    }
+
+    textarea {
+        @apply textarea textarea-accent textarea-bordered;
+    }
+
+    input, input[type=checkbox], textarea {
+        @apply bg-black rounded-lg;
+    }
+
+    label {
+        @apply font-bold;
     }
 
     main {
-        @apply flex flex-col gap-6 w-full;
+        @apply flex flex-col gap-8 w-full;
     }
 
     svg {
@@ -58,7 +74,7 @@
 }
 
 @layer utilities {
-    .min-h-screen-ex-topbar-ex-footer {
-        @apply min-h-[calc(100vh-var(--h-topbar)-var(--h-footer))];
+    .min-h-screen-ex-topbar {
+        @apply min-h-[calc(100vh-var(--h-topbar))];
     }
 }

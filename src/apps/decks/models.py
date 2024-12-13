@@ -18,7 +18,7 @@ class Deck(models.Model):
     private = models.BooleanField(default=False)
 
     def get_absolute_url(self):
-        return reverse("deck_detail", kwargs={"pk": self.pk})
+        return reverse("decks:deck_detail", kwargs={"deck_id": self.pk})
 
 
 class Card(models.Model):

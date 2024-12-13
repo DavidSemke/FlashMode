@@ -1,0 +1,25 @@
+{% extends "core/layouts/nav.html" %}
+
+{% block main %}
+    <main>
+        <h1>{{ main_h1 }}</h1>
+        <form method="post" class='flex flex-col gap-6'>
+            {% csrf_token %}
+            <p class='text-lg text-accent'>Are you sure you want to delete this card?</p>
+            <dl class='flex flex-col gap-2'>
+                <div>
+                    <dt class='inline pr-2'>Q</dt>
+                    <dd class='inline'>{{ card.question }}</dd>
+                </div>
+                <div>
+                    <dt class='inline pr-2'>A</dt>
+                    <dd class='inline'>{{ card.answer }}</dd>
+                </div>
+            </dl>
+            <div class='flex justify-center gap-12'>
+                <a href="{% url 'decks:card_list' deck.id %}" class='btn btn-primary sm:btn-wide text-lg'>Cancel</a>
+                <button type="submit" class='btn-primary sm:btn-wide text-lg'>Confirm</button>
+            </div>
+        </form>
+    </main>
+{% endblock %}

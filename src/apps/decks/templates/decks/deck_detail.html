@@ -2,9 +2,9 @@
 
 {% block main %}
     <main>
-        <article class='flex flex-col gap-6 w-full divide-y [&>section]:pt-6 [&>*]:flex [&>*]:flex-col [&>*]:gap-4'>
+        <article class='flex flex-col gap-6 w-full divide-y [&>section]:pt-6 [&>*]:flex [&>*]:flex-col [&>*]:gap-6'>
             <header>
-                <h1>{{ deck.title }}</h1>
+                <h1>{{ main_h1 }}</h1>
                 <dl class='flex gap-12 [&>div]:basis-1/3 [&>div]:flex [&>div]:flex-col sm:[&>div]:basis-auto sm:[&>div]:flex-row sm:[&>div]:gap-2'>
                     <div>
                         <dt>By</dt>
@@ -31,16 +31,16 @@
                     </li>
                     {% if request.user.is_authenticated and request.user.id == deck.creator.id %}
                         <li>
-                            <button type='button' aria-labelledby="edit-deck-label" class='btn-secondary flex gap-2'>
+                            <a href="{% url 'decks:deck_update' deck.id %}" aria-labelledby="edit-deck-label" class='btn btn-secondary flex gap-2'>
                                 <c-svg.edit_icon class='size-8' />
                                 <span id='edit-deck-label' class='text-lg hidden sm:inline'>Edit</span>
-                            </button>
+                            </a>
                         </li>
                         <li>
-                            <button type='button' aria-labelledby="delete-deck-label" class='btn-secondary flex gap-2'>
+                            <a href="{% url 'decks:deck_delete' deck.id %}" aria-labelledby="delete-deck-label" class='btn btn-secondary flex gap-2'>
                                 <c-svg.delete_icon class='size-8' />
                                 <span id='delete-deck-label' class='text-lg hidden sm:inline'>Delete</span>
-                            </button>
+                            </a>
                         </li>
                     {% endif %}
                 </ul>

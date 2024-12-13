@@ -26,5 +26,6 @@ class DeckListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["head_title"] = "Search Decks - FlashMode"
+        context["main_h1"] = "Decks"
+        context["head_title"] = f"{context['main_h1']} - FlashMode"
         return context

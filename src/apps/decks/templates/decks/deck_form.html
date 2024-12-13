@@ -1,0 +1,36 @@
+{% extends 'core/layouts/nav.html' %}
+
+{% block main %}
+    <main>
+        <h1>{{ main_h1 }}</h1>
+        <form method='post' class='flex flex-col gap-6'>
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <div class='flex items-center gap-4'>
+                        {{ field.label_tag }} {{ field }}
+                    </div>
+                {% else %}
+                    <div class='flex flex-col gap-2'>
+                        {{ field.label_tag }} {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class='flex justify-center gap-12'>
+                <a href="{% url 'decks:deck_list' %}" class='btn btn-primary sm:btn-wide text-lg'>Cancel</a>
+                <button type="submit" class='btn-primary sm:btn-wide text-lg'>Submit</button>
+            </div>
+        </form>
+    </main>
+{% endblock %}
+
+{% block bottombar %}
+    {% if not is_create_view %}
+        <c-nav.bottombar>
+            <a href={% url 'decks:card_list' deck.id %} aria-labelledby='cards-button-label' class='btn btn-secondary btn-sm sm:btn-md btn-wide flex items-center'>
+                <span id='cards-button-label' class='text-lg'>Cards</span>
+                <c-svg.chevron_down_icon aria-hidden="true" class='size-6 -rotate-90' />
+            </a>
+        </c-nav.bottombar>
+    {% endif %}
+{% endblock %}

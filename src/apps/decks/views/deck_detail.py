@@ -19,16 +19,16 @@ from ..models import Deck
 
 class DeckDetailView(DetailView):
     model = Deck
+    pk_url_kwarg = "deck_id"
 
     # use get to get one object instead of filter !!!
-
     def get_queryset(self):
         queryset = (
             super()
             .get_queryset()
             .select_related("creator")
             .annotate(card_count=Count("cards"))
-            .filter(pk=self.kwargs["pk"])
+            .filter(pk=self.kwargs["deck_id"])
         )
 
         if self.request.user.is_authenticated:
@@ -61,7 +61,7 @@ class DeckDetailView(DetailView):
 
             cards_completed_correctly_query = (
                 Response.objects.filter(
-                    study_session__deck__id=self.kwargs["pk"],
+                    study_session__deck__id=self.kwargs["deck_id"],
                     study_session__create_date__gte=timezone.now().date()
                     - timedelta(days=7),
                     is_correct=True,
@@ -89,5 +89,6 @@ class DeckDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         deck: Deck = self.get_object()
-        context["head_title"] = deck.title + " - FlashMode"
+        context["main_h1"] = f"Deck '{deck.title}'"
+        context["head_title"] = f"{context['main_h1']} - FlashMode"
         return context

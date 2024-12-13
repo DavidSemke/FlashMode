@@ -2,13 +2,14 @@
 
 {% block main %}
     <main>
+        <h1>{{ main_h1 }}</h1>
         {% if deck_list %}
-            <ul class='flex flex-col gap-4 w-full'>
+            <ul class='flex flex-col gap-6 w-full'>
                 {% for deck in deck_list %}
                     <li class='p-4 bg-base-200 border-b rounded-lg'>
                         <article class='flex flex-col items-start gap-2'>
                             <header>
-                                <a href="/decks/{{ deck.id }}" class='link-secondary'>
+                                <a href="{% url 'decks:deck_detail' deck.id %}" class='link-secondary'>
                                     <h1 class='text-xl'>{{ deck.title }}</h1>
                                 </a>
                             </header>
@@ -31,7 +32,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <span>There are no decks here!</span>
+            <span class='w-full text-center'>There are no decks here!</span>
         {% endif %}
 
         <c-nav.pagination :page_obj='page_obj'/>
