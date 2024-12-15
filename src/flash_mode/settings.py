@@ -50,9 +50,8 @@ INSTALLED_APPS = [
     # My apps
     "apps.commando",
     "apps.core",
-    "apps.decks",
     "apps.dashboard",
-    "apps.study_sessions",
+    "apps.decks",
     # Third party apps
     "whitenoise.runserver_nostatic",
     "allauth_ui",  # Put allauth_ui before allauth

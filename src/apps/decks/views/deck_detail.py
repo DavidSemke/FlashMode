@@ -13,8 +13,7 @@ from django.db.models import (
 from django.utils import timezone
 from django.views.generic.detail import DetailView
 
-from ...study_sessions.models import Response, StudySession
-from ..models import Deck
+from ..models import Deck, Response, StudySession
 
 
 class DeckDetailView(DetailView):
