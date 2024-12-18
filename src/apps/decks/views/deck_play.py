@@ -1,20 +1,18 @@
 from django.urls import reverse
 from django.views.generic import RedirectView
 
-from ..models import StudySession
+from ...study_sessions.models import StudySession
 
 
 class DeckPlayView(RedirectView):
-    template_name = "deck_play"
-
     def get(self, request, *args, **kwargs):
         # if request.user.is_authenticated:
-        # try:
-        #     self.study_session = StudySession.objects.create(
-        #         student=request.user, deck=kwargs.get("deck_id")
-        #     )
-        # except:
-        #     pass
+        #     try:
+        #         self.study_session = StudySession.objects.create(
+        #             student=request.user, deck=kwargs.get("deck_id")
+        #         )
+        #     except:
+        #         pass
 
         return super().get(request, *args, **kwargs)
 

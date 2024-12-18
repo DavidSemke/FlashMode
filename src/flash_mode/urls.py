@@ -24,6 +24,7 @@ urlpatterns = [
     path("", include("apps.core.urls")),
     path("dashboard/", include("apps.dashboard.urls")),
     path("decks/", include("apps.decks.urls")),
+    path("study_sessions/", include("apps.study_sessions.urls")),
     path("accounts/", include("allauth.urls")),
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),

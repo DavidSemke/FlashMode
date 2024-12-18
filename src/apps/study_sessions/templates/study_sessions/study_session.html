@@ -1,0 +1,37 @@
+{% extends "core/layouts/nav.html" %}
+
+{% block main %}
+    <main>
+        <h1>{{ main_h1 }}</h1>
+        <div class='overflow-hidden'>
+            <section class='flex flex-col gap-6'>
+                <h2>Question</h2>
+                <p>{{ card.question }}</p>
+                <button @click="" class='btn-primary flex flex-col items-center gap-2'>
+                    <span class='text-lg'>Answer</span>
+                    <c-svg.chevron_down_icon class='size-6' />
+                </button>
+            </section>
+            <section class='flex flex-col gap-6'>
+                <button class='btn-primary flex flex-col items-center gap-2'>
+                    <c-svg.chevron_down_icon class='size-6' />
+                    <span class='text-lg'>Question</span>
+                </button>
+                <h2>Answer</h2>
+                <p>{{ card.answer }}</p>
+            </section>
+        </div>
+    </main>
+{% endblock %}
+
+{% block bottombar %}
+    <c-nav.bottombar>
+        <a href={% url 'decks:deck_update' deck.id %} aria-labelledby='metadata-button-label' class='btn btn-secondary btn-sm sm:btn-md basis-1/2 flex items-center md:basis-auto md:btn-wide'>
+            <c-svg.chevron_down_icon aria-hidden="true" class='size-6 rotate-90' />
+            <span id='metadata-button-label' class='text-lg'>Metadata</span>
+        </a>
+        <a href={% url 'decks:card_create' deck.id %} aria-label='create card' class='btn btn-secondary btn-sm sm:btn-md basis-1/3 md:basis-auto md:btn-wide'>
+            <c-svg.create_icon aria-hidden="true" class='size-6' />
+        </a>
+    </c-nav.bottombar>
+{% endblock %}

@@ -2,13 +2,10 @@ from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 
 from ....core.model_factories import UserFactory
-from ....decks.model_factories import (
-    CardFactory,
-    DeckFactory,
-    ResponseFactory,
-    StudySessionFactory,
-)
-from ....decks.models import Card, Deck, Response, StudySession
+from ....decks.model_factories import CardFactory, DeckFactory
+from ....decks.models import Card, Deck
+from ....study_sessions.model_factories import ResponseFactory, StudySessionFactory
+from ....study_sessions.models import Response, StudySession
 
 
 class Command(BaseCommand):

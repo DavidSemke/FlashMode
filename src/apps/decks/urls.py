@@ -6,7 +6,7 @@ from .views.deck_detail import DeckDetailView
 from .views.deck_edit import DeckCreateView, DeckDeleteView, DeckUpdateView
 from .views.deck_list import DeckListView
 from .views.deck_play import DeckPlayView
-from .views.study_session import StudySessionView
+from .views.study_session_guest import StudySessionGuestView
 
 app_name = "decks"
 urlpatterns = [
@@ -29,13 +29,8 @@ urlpatterns = [
         name="card_delete",
     ),
     path(
-        "<int:deck_id>/study_sessions/guest/",
-        StudySessionView.as_view(),
+        "<int:deck_id>/study_session_guest/",
+        StudySessionGuestView.as_view(),
         name="study_session_guest",
-    ),
-    path(
-        "<int:deck_id>/study_sessions/<int:study_session_id>/",
-        StudySessionView.as_view(),
-        name="study_session",
     ),
 ]

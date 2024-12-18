@@ -1,8 +1,8 @@
 from django.contrib.auth import get_user_model
-from factory import Faker, Iterator, LazyAttribute, post_generation
+from factory import Faker, Iterator, post_generation
 from factory.django import DjangoModelFactory
 
-from .models import Card, Deck, Response, StudySession
+from .models import Card, Deck
 
 User = get_user_model()
 
@@ -32,25 +32,3 @@ class CardFactory(DjangoModelFactory):
     deck = Iterator(Deck.objects.all())
     question = Faker("text", max_nb_chars=300)
     answer = Faker("text", max_nb_chars=300)
-
-
-class StudySessionFactory(DjangoModelFactory):
-    class Meta:
-        model = StudySession
-
-    student = Iterator(User.objects.all())
-    deck = Iterator(Deck.objects.all())
-    create_date = Faker("date")
-
-
-class ResponseFactory(DjangoModelFactory):
-    class Meta:
-        model = Response
-
-    study_session = Iterator(StudySession.objects.all())
-    card = LazyAttribute(
-        lambda obj: Card.objects.filter(deck=obj.study_session.deck)
-        .order_by("?")
-        .first()
-    )
-    is_correct = Faker("pybool")
