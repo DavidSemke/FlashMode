@@ -18,23 +18,50 @@ class StudySession(models.Model):
 
 
 class Response(models.Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["study_session", "card"], name="unique_study_session_card"
+            ),
+            models.UniqueConstraint(
+                fields=["study_session", "position"],
+                name="unique_study_session_position",
+            ),
+        ]
+
     study_session = models.ForeignKey(
         StudySession, on_delete=models.CASCADE, related_name="responses"
     )
     card = models.ForeignKey(
         Card, null=True, on_delete=models.SET_NULL, related_name="responses"
     )
-    is_correct = models.BooleanField()
+    # A response is created for each card on study session create
+    # This is because position (for card order) is required
+    # Responses to cards not yet completed have is_correct = null
+    is_correct = models.BooleanField(null=True)
+    # Every study session has a random card order
+    # Response position = card position in that order
+    position = models.SmallIntegerField()
 
     def clean(self):
         super().clean()
 
-        if (
-            self.card
-            and self.study_session
-            and self.card.deck != self.study_session.deck
-        ):
+        # self.card might be None
+        if self.card and self.card.deck != self.study_session.deck:
             raise ValidationError("Card deck must match study session deck.")
+
+        if self.is_correct is None:
+            later_responses = Response.objects.filter(
+                study_session=self.study_session,
+                position__gt=self.position,
+                is_correct__isnull=False,
+            )
+
+            if later_responses.exists():
+                raise ValidationError(
+                    "If 'is_correct' is null, all subsequent responses in the same"
+                    + " study session must also have 'is_correct' as null."
+                )
 
     def save(self, *args, **kwargs):
         self.full_clean()

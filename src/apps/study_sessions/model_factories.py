@@ -24,7 +24,30 @@ class ResponseFactory(DjangoModelFactory):
     study_session = Iterator(StudySession.objects.all())
     card = LazyAttribute(
         lambda obj: Card.objects.filter(deck=obj.study_session.deck)
-        .order_by("?")
+        .exclude(
+            pk__in=Response.objects.filter(study_session=obj.study_session).values_list(
+                "card__pk", flat=True
+            )
+        )
         .first()
     )
-    is_correct = Faker("pybool")
+    position = LazyAttribute(
+        lambda obj: (
+            max(
+                Response.objects.filter(study_session=obj.study_session).values_list(
+                    "position", flat=True
+                ),
+                default=0,
+            )
+            + 1
+        )
+    )
+    is_correct = LazyAttribute(
+        lambda obj: None
+        if Response.objects.filter(
+            study_session=obj.study_session,
+            position__lt=obj.position,
+            is_correct=None,
+        ).exists()
+        else Faker("pybool").evaluate(None, None, {"locale": None})
+    )
