@@ -1,4 +1,6 @@
-# Memescape
+# FlashMode
+
+* This project is in the midst of development.
 
 <!-- [Deployed on ???](url) -->
 
@@ -24,4 +26,3 @@ Technologies used include:
 - Penguin UI
 - django-allauth
 - PostgreSQL
-- pytest ???
