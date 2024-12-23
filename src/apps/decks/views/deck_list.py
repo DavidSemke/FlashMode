@@ -17,10 +17,10 @@ class DeckListView(ListView):
             .order_by("-create_date")
         )
 
-        query = self.request.GET.get("query")
+        search = self.request.GET.get("search")
 
-        if query:
-            queryset = queryset.filter(title__icontains=query)
+        if search:
+            queryset = queryset.filter(title__icontains=search)
 
         return queryset
 
