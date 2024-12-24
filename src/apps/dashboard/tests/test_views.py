@@ -7,7 +7,7 @@ User = get_user_model()
 
 
 class IndexViewTest(TestCase):
-    def test_get_no_login(self):
+    def test_get_guest(self):
         res = self.client.get(reverse("dashboard:index"))
         # Should redirect to login page
         self.assertEqual(res.status_code, 302)
