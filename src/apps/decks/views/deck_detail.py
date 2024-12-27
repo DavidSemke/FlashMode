@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.core.exceptions import PermissionDenied
 from django.db.models import (
     Count,
     DateField,
@@ -10,6 +11,7 @@ from django.db.models import (
     OuterRef,
     Subquery,
 )
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views.generic.detail import DetailView
 
@@ -21,7 +23,16 @@ class DeckDetailView(DetailView):
     model = Deck
     pk_url_kwarg = "deck_id"
 
-    # use get to get one object instead of filter !!!
+    def get(self, request, *args, **kwargs):
+        deck = get_object_or_404(
+            Deck.objects.select_related("creator"), id=kwargs.get("deck_id")
+        )
+
+        if deck.private and deck.creator.id != request.user.id:
+            raise PermissionDenied()
+
+        return super().get(request, *args, **kwargs)
+
     def get_queryset(self):
         queryset = (
             super()
@@ -45,6 +56,7 @@ class DeckDetailView(DetailView):
 
             cards_completed_query = (
                 Response.objects.filter(
+                    is_correct__isnull=False,
                     study_session__deck=OuterRef("pk"),
                     study_session__create_date__gte=timezone.now().date()
                     - timedelta(days=7),
@@ -61,10 +73,10 @@ class DeckDetailView(DetailView):
 
             cards_completed_correctly_query = (
                 Response.objects.filter(
+                    is_correct=True,
                     study_session__deck__id=self.kwargs["deck_id"],
                     study_session__create_date__gte=timezone.now().date()
                     - timedelta(days=7),
-                    is_correct=True,
                 )
                 .values("study_session__deck")
                 .annotate(count=Count("id"))
