@@ -1,9 +1,8 @@
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-User = get_user_model()
+from ...core.model_factories import UserFactory
 
 
 class IndexViewTest(TestCase):
@@ -15,9 +14,8 @@ class IndexViewTest(TestCase):
 
     def test_get_login(self):
         with self.assertTemplateUsed("dashboard/index.html"):
-            password = "noodle"
-            user = User.objects.create_user(username="freddie", password=password)
-            logged_in = self.client.login(username=user.username, password=password)
+            user = UserFactory()
+            logged_in = self.client.login(username=user.username, password="password")
             self.assertTrue(logged_in, "Login failed")
 
             res = self.client.get(reverse("dashboard:index"))
