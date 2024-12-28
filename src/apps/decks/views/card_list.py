@@ -5,7 +5,7 @@ from django.views.generic.list import ListView
 
 from ..models import Card
 from .utils.auth import get_creator_deck
-from .utils.context import set_card_context_headings
+from .utils.context import set_prefixed_deck_context_headings
 
 
 class CardListView(LoginRequiredMixin, ListView):
@@ -30,5 +30,5 @@ class CardListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["deck"] = self.deck
-        set_card_context_headings(context, "cards")
+        set_prefixed_deck_context_headings(context, "cards")
         return context

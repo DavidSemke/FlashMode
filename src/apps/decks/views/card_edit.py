@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from ..forms import CardForm
 from ..models import Card
 from .utils.auth import get_creator_deck
-from .utils.context import set_card_edit_context_headings
+from .utils.context import set_prefixed_deck_context_headings
 
 
 class CardCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -34,7 +34,7 @@ class CardCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["deck"] = self.deck
-        set_card_edit_context_headings(context, "create")
+        set_prefixed_deck_context_headings(context, "create card")
         return context
 
 
@@ -57,7 +57,7 @@ class CardUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["deck"] = self.deck
-        set_card_edit_context_headings(context, "update")
+        set_prefixed_deck_context_headings(context, "update card")
         return context
 
 
@@ -79,5 +79,5 @@ class CardDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["deck"] = self.deck
-        set_card_edit_context_headings(context, "delete")
+        set_prefixed_deck_context_headings(context, "delete card")
         return context
