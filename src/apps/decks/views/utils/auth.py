@@ -5,7 +5,7 @@ from ...models import Deck
 
 
 def get_creator_deck(request_user, deck_id):
-    deck = get_object_or_404(Deck, id=deck_id)
+    deck = get_object_or_404(Deck.objects.select_related("creator"), id=deck_id)
 
     if deck.creator.id != request_user.id:
         raise PermissionDenied()
