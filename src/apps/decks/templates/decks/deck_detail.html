@@ -24,10 +24,10 @@
                 <h2>Actions</h2>
                 <ul class='flex gap-4'>
                     <li>
-                        <button type='button' aria-labelledby="play-deck-label" class='btn-primary flex gap-2'>
+                        <a href="{% url 'decks:deck_play' deck.id %}" aria-labelledby="play-deck-label" class='btn btn-primary flex gap-2'>
                             <c-svg.play_icon class='size-8' />
                             <span id='play-deck-label' class='text-lg hidden sm:inline'>Play</span>
-                        </button>
+                        </a>
                     </li>
                     {% if request.user.is_authenticated and request.user.id == deck.creator.id %}
                         <li>
