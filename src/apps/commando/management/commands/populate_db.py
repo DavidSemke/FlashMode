@@ -30,10 +30,8 @@ class Command(BaseCommand):
 
     def _clear_tables(self):
         User = get_user_model()
-        # Exclude super-user, test-user
-        User.objects.exclude(id__in=[8, 9]).delete()
 
-        for model in (Deck, Card, StudySession, Response):
+        for model in (User, Deck, Card, StudySession, Response):
             model.objects.all().delete()
 
     # Handles 1-1 relationships (e.g. Profile)
