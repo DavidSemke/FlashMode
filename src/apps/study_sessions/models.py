@@ -14,7 +14,7 @@ class StudySession(models.Model):
     deck = models.ForeignKey(
         Deck, null=True, on_delete=models.SET_NULL, related_name="study_sessions"
     )
-    create_date = models.DateField(auto_now_add=True)
+    create_date = models.DateTimeField(auto_now_add=True)
 
 
 class Response(models.Model):
