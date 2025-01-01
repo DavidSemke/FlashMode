@@ -38,7 +38,7 @@ class Response(models.Model):
     # A response is created for each card on study session create
     # This is because position (for card order) is required
     # Responses to cards not yet completed have is_correct = null
-    is_correct = models.BooleanField(null=True, default=None)
+    is_correct = models.BooleanField(null=True, blank=True)
     # Every study session has a random card order
     # Response position = card position in that order
     position = models.SmallIntegerField()
