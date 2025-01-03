@@ -1,0 +1,75 @@
+{% extends "core/layouts/base.html" %}
+
+{% block main %}
+    {{ card_list|json_script:"card_list" }}
+    <main
+        x-data="{
+                cards: JSON.parse(document.getElementById('card_list').textContent),
+                cardIndex: 0,
+                correctCount: 0,
+                showingQuestion: true,
+                progressPercentage() {
+                return (this.cardIndex / this.cards.length * 100).toFixed(0);
+                },
+                accuracyPercentage() {
+                return (this.correctCount / this.cards.length * 100).toFixed(0);
+                },
+                milestoneMessage() {
+                const percentage = this.accuracyPercentage();
+                if (percentage == 100) return 'Wow! You aced it!';
+                if (percentage >= 75) return 'Great job! Your studying is paying off!';
+                if (percentage >= 50) return 'Keep it up! You have crossed the halfway point!';
+                if (percentage >= 25) return 'Too bad! You will do better next time!';
+                return 'Ouch! This calls for a retry!';
+                }
+                }"
+        @error-response.window="cardIndex++; if (cardIndex === cards.length) { $dispatch('session-completed') }"
+        @success-response.window="cardIndex++; correctCount++; if (cardIndex === cards.length) { $dispatch('session-completed') }"
+    >
+        <header class='flex flex-col gap-8'>
+            <h1>{{ main_h1 }}</h1>
+            {% comment %} Progress bar {% endcomment %}
+            <div class="flex h-4 w-full overflow-hidden rounded-md bg-accent text-accent-content" role="progressbar" aria-label="default progress bar" :aria-valuenow="progressPercentage()" aria-valuemin="0" aria-valuemax="100">
+                <div class="h-full rounded-md bg-black p-0.5 text-center text-xs font-semibold leading-none bg-info" :style="`width: ${progressPercentage()}%`">
+                    <span x-text="`${progressPercentage()}%`"></span>
+                </div>
+            </div>
+        </header>
+        {% comment %} Card container {% endcomment %}
+        <div x-cloak x-show="cardIndex < cards.length" class='p-4 border rounded-lg bg-base-200'>
+            <section x-cloak x-show="showingQuestion" class='flex flex-col gap-6'>
+                <h2>Question</h2>
+                <p x-text="cards[cardIndex].question"></p>
+                <button type='button' @click="showingQuestion = false" class='btn-primary btn-wide flex justify-center gap-2 m-auto'>
+                    <c-svg.chevron_down_icon class='size-6' />
+                    <span class='text-lg'>Answer</span>
+                </button>
+            </section>
+            <section x-cloak x-show="!showingQuestion" class='flex flex-col gap-6'>
+                <button type='button' @click="showingQuestion = true" class='btn-primary btn-wide flex justify-center gap-2 m-auto'>
+                    <c-svg.chevron_down_icon class='size-6 rotate-180' />
+                    <span class='text-lg'>Question</span>
+                </button>
+                <h2>Answer</h2>
+                <p x-text="cards[cardIndex].answer"></p>
+            </section>
+        </div>
+        {% comment %} View shown after response to last card {% endcomment %}
+        <section x-cloak x-show="cardIndex >= cards.length" class='flex flex-col gap-6'>
+            <h2>Deck Completed!</h2>
+            <dl>
+                <div class='flex gap-2 text-lg'>
+                    <dt>Cards completed</dt>
+                    <dd x-text="cards.length"></dd>
+                </div>
+                <div class='flex gap-2 text-lg'>
+                    <dt>Accuracy</dt>
+                    <dd x-text="accuracyPercentage() + '%'"></dd>
+                </div>
+            </dl>
+            <p x-text="milestoneMessage()" class='text-lg'></p>
+        </section>
+    </main>
+{% endblock %}
+
+{% block bottombar %}{% endblock %}
