@@ -17,7 +17,7 @@ class DeckPlayView(RedirectView):
                 Deck.objects.prefetch_related(
                     Prefetch("cards", queryset=Card.objects.only("id"))
                 ),
-                pk=kwargs.get("deck_id"),
+                id=kwargs.get("deck_id"),
             )
 
             with transaction.atomic():

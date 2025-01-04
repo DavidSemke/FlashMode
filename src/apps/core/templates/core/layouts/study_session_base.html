@@ -6,7 +6,8 @@
         x-data="{
                 cards: JSON.parse(document.getElementById('card_list').textContent),
                 cardIndex: 0,
-                correctCount: 0,
+                correctCount: {{ correct_count|default:0 }},
+                cardCount: {{ card_count }}
                 showingQuestion: true,
                 progressPercentage() {
                 return (this.cardIndex / this.cards.length * 100).toFixed(0);
