@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.forms import ValidationError
+from django.utils import timezone
 
 from ..decks.models import Card, Deck
 
@@ -14,7 +15,7 @@ class StudySession(models.Model):
     deck = models.ForeignKey(
         Deck, null=True, on_delete=models.SET_NULL, related_name="study_sessions"
     )
-    create_date = models.DateTimeField(auto_now_add=True)
+    create_date = models.DateTimeField(default=timezone.now)
 
 
 class Response(models.Model):
