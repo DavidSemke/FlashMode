@@ -22,7 +22,7 @@ class Command(BaseCommand):
         card_count = deck_count * 10
         self._insert_cards(card_count)
 
-        study_session_count = len(users) * 10
+        study_session_count = len(users)
         self._insert_study_sessions(study_session_count)
 
         response_count = study_session_count * 10
