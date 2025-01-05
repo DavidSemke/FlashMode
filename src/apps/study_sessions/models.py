@@ -51,17 +51,23 @@ class Response(models.Model):
             raise ValidationError("Card deck must match study session deck.")
 
         if self.is_correct is None:
-            later_responses = Response.objects.filter(
+            illegal_responses = Response.objects.filter(
                 study_session=self.study_session,
                 position__gt=self.position,
                 is_correct__isnull=False,
             )
+        else:
+            illegal_responses = Response.objects.filter(
+                study_session=self.study_session,
+                position__lt=self.position,
+                is_correct__isnull=True,
+            )
 
-            if later_responses.exists():
-                raise ValidationError(
-                    "If 'is_correct' is null, all subsequent responses in the same"
-                    + " study session must also have 'is_correct' as null."
-                )
+        if illegal_responses.exists():
+            raise ValidationError(
+                "If 'is_correct' is null, all subsequent responses in the same"
+                + " study session must also have 'is_correct' as null."
+            )
 
     def save(self, *args, **kwargs):
         self.full_clean()
