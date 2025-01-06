@@ -14,7 +14,6 @@ class StudySessionFactory(DjangoModelFactory):
 
     student = Iterator(User.objects.all())
     deck = Iterator(Deck.objects.all())
-    create_date = Faker("date")
 
 
 class ResponseFactory(DjangoModelFactory):
