@@ -1,5 +1,6 @@
 from random import shuffle
 
+from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404
@@ -12,14 +13,17 @@ from ...study_sessions.models import Response, StudySession
 
 class DeckPlayView(RedirectView):
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            deck = get_object_or_404(
-                Deck.objects.prefetch_related(
-                    Prefetch("cards", queryset=Card.objects.only("id"))
-                ),
-                id=kwargs.get("deck_id"),
-            )
+        deck = get_object_or_404(
+            Deck.objects.select_related("creator").prefetch_related(
+                Prefetch("cards", queryset=Card.objects.only("id"))
+            ),
+            id=kwargs.get("deck_id"),
+        )
 
+        if deck.private and request.user.id != deck.creator.id:
+            raise PermissionDenied()
+
+        if request.user.is_authenticated:
             with transaction.atomic():
                 self.study_session = StudySession.objects.create(
                     student=request.user, deck=deck
