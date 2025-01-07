@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 from django.core.exceptions import PermissionDenied
 from django.db.models import (
     Count,
@@ -58,8 +56,9 @@ class DeckDetailView(DetailView):
                 Response.objects.filter(
                     is_correct__isnull=False,
                     study_session__deck=OuterRef("pk"),
-                    study_session__create_date__gte=timezone.now().date()
-                    - timedelta(days=7),
+                    study_session__create_date__gte=(
+                        timezone.now() - timezone.timedelta(days=7)
+                    ),
                 )
                 .values("study_session__deck")
                 .annotate(count=Count("id"))
@@ -75,8 +74,9 @@ class DeckDetailView(DetailView):
                 Response.objects.filter(
                     is_correct=True,
                     study_session__deck__id=self.kwargs["deck_id"],
-                    study_session__create_date__gte=timezone.now().date()
-                    - timedelta(days=7),
+                    study_session__create_date__gte=(
+                        timezone.now() - timezone.timedelta(days=7)
+                    ),
                 )
                 .values("study_session__deck")
                 .annotate(count=Count("id"))
