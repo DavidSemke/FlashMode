@@ -21,9 +21,7 @@ class StudySessionViewTest(TestCase):
     def setUp(self):
         self.user1 = UserFactory()
         self.deck1 = DeckFactory(creator=self.user1)
-        self.study_session1 = StudySessionFactory(
-            student=self.user1, deck=self.deck1, create_date=timezone.now()
-        )
+        self.study_session1 = StudySessionFactory(student=self.user1, deck=self.deck1)
         self.url = reverse(
             "study_sessions:study_session",
             kwargs={"study_session_id": self.study_session1.id},
