@@ -42,15 +42,22 @@ class StudySessionView(LoginRequiredMixin, TemplateView):
         )
         unused_responses = []
         correct_responses = []
+        self.cards = []
 
         for res in responses:
             if res.is_correct is None:
                 unused_responses.append(res)
+                self.cards.append(
+                    {
+                        "id": res.card.id,
+                        "question": res.card.question,
+                        "answer": res.card.answer,
+                    }
+                )
             elif res.is_correct is True:
                 correct_responses.append(res)
 
         self.card_count = len(responses)
-        self.cards = [res.card for res in unused_responses]
         self.correct_count = len(correct_responses)
 
         return super().get(request, *args, **kwargs)
