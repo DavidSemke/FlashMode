@@ -37,39 +37,43 @@
                 </div>
             </header>
             {% comment %} Card container {% endcomment %}
-            <div x-cloak x-show="cardIndex < cards.length" class='p-4 border rounded-lg bg-base-200'>
-                <section x-cloak x-show="showingQuestion" class='flex flex-col gap-6'>
-                    <h2>Question</h2>
-                    <p x-text="cards[cardIndex].question"></p>
-                    <button type='button' @click="showingQuestion = false" class='btn-primary btn-wide flex justify-center gap-2 m-auto'>
-                        <c-svg.chevron_down_icon class='size-6' />
-                        <span class='text-lg'>Answer</span>
-                    </button>
-                </section>
-                <section x-cloak x-show="!showingQuestion" class='flex flex-col gap-6'>
-                    <button type='button' @click="showingQuestion = true" class='btn-primary btn-wide flex justify-center gap-2 m-auto'>
-                        <c-svg.chevron_down_icon class='size-6 rotate-180' />
-                        <span class='text-lg'>Question</span>
-                    </button>
-                    <h2>Answer</h2>
-                    <p x-text="cards[cardIndex].answer"></p>
-                </section>
-            </div>
+            <template x-cloak x-if="cardIndex < cards.length">
+                <div class='p-4 border rounded-lg bg-base-200'>
+                    <section x-cloak x-show="showingQuestion" class='flex flex-col gap-6'>
+                        <h2>Question</h2>
+                        <p x-text="cards[cardIndex].question"></p>
+                        <button type='button' @click="showingQuestion = false" class='btn-primary btn-wide flex justify-center gap-2 m-auto'>
+                            <c-svg.chevron_down_icon class='size-6' />
+                            <span class='text-lg'>Answer</span>
+                        </button>
+                    </section>
+                    <section x-cloak x-show="!showingQuestion" class='flex flex-col gap-6'>
+                        <button type='button' @click="showingQuestion = true" class='btn-primary btn-wide flex justify-center gap-2 m-auto'>
+                            <c-svg.chevron_down_icon class='size-6 rotate-180' />
+                            <span class='text-lg'>Question</span>
+                        </button>
+                        <h2>Answer</h2>
+                        <p x-text="cards[cardIndex].answer"></p>
+                    </section>
+                </div>
+            </template>
             {% comment %} View shown after response to last card {% endcomment %}
-            <section x-cloak x-show="cardIndex >= cards.length" class='flex flex-col gap-6'>
-                <h2>Deck Completed!</h2>
-                <dl>
-                    <div class='flex gap-2 text-lg'>
-                        <dt>Cards completed</dt>
-                        <dd x-text="cardCount"></dd>
-                    </div>
-                    <div class='flex gap-2 text-lg'>
-                        <dt>Accuracy</dt>
-                        <dd x-text="accuracyPercentage() + '%'"></dd>
-                    </div>
-                </dl>
-                <p x-text="milestoneMessage()" class='text-lg'></p>
-            </section>
+            <template x-cloak x-if="cardIndex >= cards.length">
+                <section class='flex flex-col gap-6'>
+                    <h2>Deck Completed!</h2>
+                    <dl>
+                        <div class='flex gap-2 text-lg'>
+                            <dt>Cards completed</dt>
+                            <dd x-text="cardCount"></dd>
+                        </div>
+                        <div class='flex gap-2 text-lg'>
+                            <dt>Accuracy</dt>
+                            <dd x-text="accuracyPercentage() + '%'"></dd>
+                        </div>
+                    </dl>
+                    <p x-text="milestoneMessage()" class='text-lg'></p>
+                </section>
+            </template>
         </div>
 
         {% block bottombar %}{% endblock %}
