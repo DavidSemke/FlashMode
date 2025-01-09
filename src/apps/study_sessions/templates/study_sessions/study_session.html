@@ -3,13 +3,20 @@
 {% block bottombar %}
     <c-nav.bottombar>
         <form
-            id='bottombar-form'
             hx-post="{% url 'study_sessions:response' study_session_id %}"
             hx-trigger="submit delay:500ms"
             x-data="{ responseType: null }"
             x-cloak
             x-show="cardIndex < cards.length"
-            @htmx:after-request="cardIndex++; if (responseType !== 'error') correctCount++; responseType = null"
+            @htmx:after-request="
+                                 if (cardIndex < cards.length) {
+                                 cardIndex++;
+                                 if (responseType !== 'error') {
+                                 correctCount++;
+                                 }
+                                 responseType = null;
+                                 }
+                                "
             class='flex justify-around w-full'
         >
             {% csrf_token %}
