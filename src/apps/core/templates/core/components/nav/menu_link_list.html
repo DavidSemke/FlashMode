@@ -1,12 +1,4 @@
 <ul {{ attrs }}>
-    <li>
-        <a
-            href="{% url 'core:index' %}"
-            class='link-secondary'
-        >
-            Home
-        </a>
-    </li>
     {% if request.user.is_authenticated %}
         <li>
             <a
@@ -18,14 +10,37 @@
         </li>
         <li>
             <a
+                href="{% url 'decks:deck_list' %}"
+                class='link-secondary'
+            >
+                View Decks
+            </a>
+        </li>
+        <li>
+            <a
+                href="{% url 'decks:deck_create' %}"
+                class='link-secondary'
+            >
+                Create Deck
+            </a>
+        </li>
+        <li>
+            <a
                 href="{% url 'account_logout' %}"
                 class='link-secondary'
             >
                 Log Out
             </a>
         </li>
-    {% endif %}
-    {% if not request.user.is_authenticated %}
+    {% else %}
+        <li>
+            <a
+                href="{% url 'decks:deck_list' %}"
+                class='link-secondary'
+            >
+                View Decks
+            </a>
+        </li>
         <li>
             <a
                 href="{% url 'account_login' %}"
