@@ -1,0 +1,7 @@
+<c-vars label_prefix valuenow />
+
+<div class="flex h-4 w-full overflow-hidden rounded-md bg-accent text-accent-content" role="progressbar" aria-label="{{ label_prefix }} progress bar" :aria-valuenow="{{ valuenow }}" aria-valuemin="0" aria-valuemax="100">
+    <div class="h-full rounded-md p-0.5 text-center text-xs font-semibold leading-none bg-info" :style="`width: ${ {{ valuenow }} }%`">
+        <span x-text="`${ {{ valuenow }} }%`"></span>
+    </div>
+</div>

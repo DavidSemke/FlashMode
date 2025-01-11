@@ -29,12 +29,7 @@
         <div class='grow flex flex-col gap-8'>
             <header class='flex flex-col gap-8'>
                 <h1>{{ main_h1 }}</h1>
-                {% comment %} Progress bar {% endcomment %}
-                <div class="flex h-4 w-full overflow-hidden rounded-md bg-accent text-accent-content" role="progressbar" aria-label="default progress bar" :aria-valuenow="progressPercentage()" aria-valuemin="0" aria-valuemax="100">
-                    <div class="h-full rounded-md bg-black p-0.5 text-center text-xs font-semibold leading-none bg-info" :style="`width: ${progressPercentage()}%`">
-                        <span x-text="`${progressPercentage()}%`"></span>
-                    </div>
-                </div>
+                <c-feedback.progressbar label_prefix="study session" valuenow="progressPercentage()" />
             </header>
             {% comment %} Card container {% endcomment %}
             <template x-cloak x-if="cardIndex < cards.length">
