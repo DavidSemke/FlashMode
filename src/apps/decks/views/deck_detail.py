@@ -91,7 +91,7 @@ class DeckDetailView(DetailView):
 
             queryset = queryset.annotate(
                 accuracy=ExpressionWrapper(
-                    F("cards_completed_correctly") * 1.0 / F("cards_completed"),
+                    F("cards_completed_correctly") * 100.0 / F("cards_completed"),
                     output_field=FloatField(),
                 )
             )
