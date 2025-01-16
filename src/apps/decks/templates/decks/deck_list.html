@@ -6,29 +6,7 @@
         {% if deck_list %}
             <ul class='flex flex-col gap-6 w-full'>
                 {% for deck in deck_list %}
-                    <li class='p-4 bg-base-200 border-b rounded-lg'>
-                        <article class='flex flex-col items-start gap-2'>
-                            <header>
-                                <a href="{% url 'decks:deck_detail' deck.id %}" class='link-secondary'>
-                                    <h1 class='text-xl'>{{ deck.title }}</h1>
-                                </a>
-                            </header>
-                            <section class='flex gap-12'>
-                                <div class='flex flex-col'>
-                                    <span class='font-bold'>By</span>
-                                    <span>{{ deck.creator }}</span>
-                                </div>
-                                <div class='flex flex-col'>
-                                    <span class='font-bold'>Created</span>
-                                    <span>{{ deck.create_date }}</span>
-                                </div>
-                                <div class='flex flex-col'>
-                                    <span class='font-bold'>Size</span>
-                                    <span>{{ deck.card_count }}</span>
-                                </div>
-                            </section>
-                        </article>
-                    </li>
+                    <c-list.deck_list_item id="{{ deck.id }}" title="{{ deck.title }}" creator="{{ deck.creator }}" create_date="{{ deck.create_date }}" card_count="{{ deck.card_count }}" />
                 {% endfor %}
             </ul>
         {% else %}

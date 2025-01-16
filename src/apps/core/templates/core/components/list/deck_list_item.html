@@ -1,0 +1,25 @@
+<c-vars id title creator create_date card_count />
+
+<li class='p-4 bg-base-200 border-b rounded-lg'>
+    <article class='flex flex-col items-start gap-2'>
+        <header>
+            <a href="{% url 'decks:deck_detail' id %}" class='link-secondary'>
+                <h1 class='text-xl'>{{ title }}</h1>
+            </a>
+        </header>
+        <section class='flex gap-12'>
+            <div class='flex flex-col'>
+                <span class='font-bold'>By</span>
+                <span>{{ creator }}</span>
+            </div>
+            <div class='flex flex-col'>
+                <span class='font-bold'>Created</span>
+                <span>{{ create_date }}</span>
+            </div>
+            <div class='flex flex-col'>
+                <span class='font-bold'>Size</span>
+                <span>{{ card_count }}</span>
+            </div>
+        </section>
+    </article>
+</li>
