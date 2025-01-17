@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -30,10 +31,14 @@ class IndexView(LoginRequiredMixin, TemplateView):
         self.weekly_goal = profile.weekly_card_count_goal
         progress_percent = round(week_card_count / self.weekly_goal * 100)
         self.weekly_goal_progress = min(100, progress_percent)
-        self.recent_decks = Deck.objects.filter(
-            study_sessions__create_date__gte=most_recent_sunday,
-            study_sessions__student=request.user.id,
-        ).distinct()[:5]
+        self.recent_decks = (
+            Deck.objects.filter(
+                study_sessions__create_date__gte=most_recent_sunday,
+                study_sessions__student=request.user.id,
+            )
+            .annotate(card_count=Count("cards"))
+            .distinct()[:5]
+        )
 
         return super().get(request, *args, **kwargs)
 
