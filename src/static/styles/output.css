@@ -3140,10 +3140,6 @@ svg {
     gap: 0px;
   }
 
-  .sm\:gap-4 {
-    gap: 1rem;
-  }
-
   .sm\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;

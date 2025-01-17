@@ -2,36 +2,59 @@
 
 {% block main %}
     <main>
-        <h1>Hi {{ request.user.username }}</h1>
-        <section>
-            <h2>Weekly Goal</h2>
-            <div>Progress bar</div>
-            <p>You have completed % of your weekly goal!</p>
-            <div>
-                <div>Current goal:</div>
-                <div>X minutes/hours</div>
-                <button class='btn-secondary'>Change Weekly Goal</button>
-            </div>
+        <h1 class='text-primary'>Hi {{ request.user.username }}</h1>
+        <section x-data="{ showWeeklyGoalForm: false }" class="flex flex-col gap-6">
+            <header class='flex items-center gap-4'>
+                <h2>Weekly Goal</h2>
+                <button type='button' aria-label='change weekly goal' @click="showWeeklyGoalForm = true" class='btn-secondary btn-sm sm:btn-md'>
+                    <c-svg.edit_icon class='size-6' />
+                </button>
+            </header>
+            <form
+                method='post'
+                action="{% url 'dashboard:weekly_goal_update' %}"
+                x-cloak
+                x-show="showWeeklyGoalForm"
+                class='flex gap-4 w-full'
+            >
+                {% csrf_token %}
+                <input type="number" id='weekly_goal' name='weekly_goal' min='0' max='999' value="{{ weekly_goal }}">
+                <button type='submit' class='btn-primary'>Submit</button>
+                <button type='reset' class='btn-primary' @click="showWeeklyGoalForm = false">Cancel</button>
+            </form>
+            <c-feedback.progressbar label_prefix="weekly goal" valuenow="{{ weekly_goal_progress }}" />
+            <p>Your weekly goal is <span class='font-bold text-accent'>{{ weekly_goal }}</span> cards.</p>
         </section>
-        <section>
-            <h2>Time and Accuracy</h2>
-            <h3>Deck name</h3>
-            <div>
-                <button class='btn-secondary' aria-label='Play deck'>X</button>
-                <button class='btn-secondary' aria-label='Close deck'>X</button>
-            </div>
-            <dl>
-                <dt>Total Questions</dt>
-                <dd>0</dd>
-                <dt>Category</dt>
-                <dd>0</dd>
-                <dt>Time Since Last Use</dt>
-                <dd>0</dd>
-                <dt>Importance</dt>
-                <dd>0</dd>
-            </dl>
-            <div>Time progress bar</div>
-            <div>Accuracy progress bar</div>
+        <section class="flex flex-col gap-6">
+            <header class='flex items-center gap-4'>
+                <h2>My Decks</h2>
+                <a href="{% url 'decks:deck_create' %}" aria-label='create deck' class='btn btn-secondary btn-sm sm:btn-md'>
+                    <c-svg.create_icon class='size-6' />
+                </a>
+            </header>
+            <section class='flex flex-col gap-4'>
+                <h3>Views</h3>
+                <div class='flex gap-4 justify-center sm:justify-start'>
+                    <a href="{% url 'decks:deck_list' %}?creator_id={{ request.user.id }}" class="btn btn-secondary">Created</a>
+                    <a href="{% url 'decks:deck_list' %}?collected=true" class="btn btn-secondary">Collected</a>
+                    <a href="{% url 'decks:deck_list' %}?collected=false" class="btn btn-secondary">Not Collected</a>
+                </div>
+            </section>
+            <section class='flex flex-col gap-4'>
+                <h3>Recently Played</h3>
+                {% if recent_decks %}
+                    <ul class='flex flex-col gap-6 w-full'>
+                        {% for deck in recent_decks %}
+                            <c-list.deck_list_item id="{{ deck.id }}" title="{{ deck.title }}" creator="{{ deck.creator }}" create_date="{{ deck.create_date }}" card_count="{{ deck.card_count }}" />
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class='flex flex-col gap-4 items-start'>
+                        <span>There are no decks here!</span>
+                        <a href="{% url 'decks:deck_list' %}" class="btn btn-secondary">View Decks</a>
+                    </div>
+                {% endif %}
+            </section>
         </section>
     </main>
 {% endblock %}
