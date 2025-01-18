@@ -6,7 +6,7 @@
     class="sticky top-0 z-20 flex justify-center h-[--h-topbar]"
 >
     <nav
-        class="flex items-center justify-between md:justify-around w-full z-10 bg-base-300 border-b border-base-content px-4 py-2"
+        class="flex items-center justify-between lg:justify-around w-full z-10 bg-base-300 border-b border-base-content px-4 py-2"
         aria-label="FlashMode navbar"
     >
         <div class='flex justify-center gap-8'>
@@ -26,8 +26,8 @@
         </div>
 
         <!-- Desktop menu -->
-        <c-nav.menu_link_list class="menu menu-horizontal hidden md:flex text-base"/>
-        <div class='flex gap-4 md:hidden'>
+        <c-nav.menu_link_list class="menu menu-horizontal hidden lg:flex text-base"/>
+        <div class='flex gap-4 lg:hidden'>
             <!-- Mobile search button -->
             <button @click="searchbarIsOpen = !searchbarIsOpen" :aria-expanded="searchbarIsOpen" type="button" class="btn-secondary flex sm:hidden" aria-label="Searchbar button" aria-controls="mobile-topbar-searchbar">
                 <c-svg.search_icon x-cloak x-show='!searchbarIsOpen' aria-hidden="true" class="size-6" />
@@ -41,7 +41,7 @@
         </div>
 
         <!-- Mobile menu -->
-        <c-nav.menu_link_list x-cloak x-show="menuIsOpen" x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="menu" class="menu fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-base-content rounded-b-md border-b border-base-content bg-base-300 px-6 pb-6 pt-20 md:hidden text-base"/>
+        <c-nav.menu_link_list x-cloak x-show="menuIsOpen" x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="menu" class="menu fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-base-content rounded-b-md border-b border-base-content bg-base-300 px-6 pb-6 pt-20 lg:hidden text-base"/>
     </nav>
 
     <!-- Mobile searchbar -->

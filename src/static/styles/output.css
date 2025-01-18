@@ -3187,8 +3187,20 @@ svg {
 }
 
 @media (min-width: 1024px) {
+  .lg\:flex {
+    display: flex;
+  }
+
+  .lg\:hidden {
+    display: none;
+  }
+
   .lg\:basis-auto {
     flex-basis: auto;
+  }
+
+  .lg\:justify-around {
+    justify-content: space-around;
   }
 }
 
