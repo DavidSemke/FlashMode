@@ -37,7 +37,6 @@ class DeckDetailView(DetailView):
             .get_queryset()
             .select_related("creator")
             .annotate(card_count=Count("cards"))
-            .filter(pk=self.kwargs["deck_id"])
         )
 
         if self.request.user.is_authenticated:
@@ -100,7 +99,7 @@ class DeckDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        deck: Deck = self.get_object()
+        deck = self.object
         context["main_h1"] = f"Deck '{deck.title}'"
         context["head_title"] = f"{context['main_h1']} - FlashMode"
         return context
