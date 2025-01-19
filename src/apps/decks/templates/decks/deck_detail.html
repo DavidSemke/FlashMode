@@ -51,15 +51,15 @@
                     <dl class='[&>div]:flex [&>div]:gap-2'>
                         <div>
                             <dt>Last played</dt>
-                            <dd>{{ deck.last_played }}</dd>
+                            <dd>{{ deck.last_played|default:"Never" }}</dd>
                         </div>
                         <div>
                             <dt>Cards completed this week</dt>
-                            <dd>{{ deck.cards_completed }}</dd>
+                            <dd>{{ deck.cards_completed|default:"0" }}</dd>
                         </div>
                         <div>
                             <dt>Accuracy</dt>
-                            <dd>{{ deck.accuracy|floatformat:"0" }} %</dd>
+                            <dd>{{ deck.accuracy|floatformat:"0"|default:"0" }} %</dd>
                         </div>
                     </dl>
                 {% else %}
