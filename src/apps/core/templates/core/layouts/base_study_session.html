@@ -31,7 +31,7 @@
                 <h1>{{ main_h1 }}</h1>
                 <c-feedback.progressbar label_prefix="study session" valuenow="progressPercentage()" />
             </header>
-            {% comment %} Card container {% endcomment %}
+            {# Card container #}
             <template x-cloak x-if="cardIndex < cards.length">
                 <div class='p-4 border rounded-lg bg-base-200'>
                     <section x-cloak x-show="showingQuestion" class='flex flex-col gap-6'>
@@ -52,7 +52,7 @@
                     </section>
                 </div>
             </template>
-            {% comment %} View shown after response to last card {% endcomment %}
+            {# View shown after response to last card #}
             <template x-cloak x-if="cardIndex >= cards.length">
                 <section class='flex flex-col gap-6'>
                     <h2>Deck Completed!</h2>
