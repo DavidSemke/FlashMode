@@ -15,12 +15,6 @@ class DeckCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = DeckForm
     success_message = "Deck '%(title)s' created successfully"
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(settings.LOGIN_URL)
-
-        return super().dispatch(request, *args, **kwargs)
-
     def get_success_url(self):
         return reverse("decks:card_list", kwargs={"deck_id": self.object.pk})
 
