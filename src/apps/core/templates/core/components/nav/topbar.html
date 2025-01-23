@@ -34,7 +34,7 @@
                 <c-svg.search_off_icon x-cloak x-show='searchbarIsOpen' aria-hidden="true" class="size-6" />
             </button>
             {# Mobile menu button #}
-            <button @click="menuIsOpen = !menuIsOpen" :aria-expanded="menuIsOpen" :class="menuIsOpen ? 'fixed top-6 right-6 z-20' : null" type="button" class="btn-secondary flex" aria-label="Menu button" aria-controls="menu">
+            <button @click="menuIsOpen = !menuIsOpen" :aria-expanded="menuIsOpen" :class="menuIsOpen ? 'fixed top-4 right-4 z-20' : null" type="button" class="btn-secondary flex" aria-label="Menu button" aria-controls="menu">
                 <c-svg.menu_icon x-cloak x-show="!menuIsOpen" aria-hidden="true" class="size-6" />
                 <c-svg.x_icon x-cloak x-show="menuIsOpen" aria-hidden="true" class="size-6" />
             </button>
