@@ -1,17 +1,14 @@
 from django.core.exceptions import PermissionDenied
 from django.db.models import (
-    BooleanField,
-    Case,
     Count,
     DateField,
+    Exists,
     ExpressionWrapper,
     F,
     FloatField,
     IntegerField,
     OuterRef,
     Subquery,
-    Value,
-    When,
 )
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
@@ -26,11 +23,11 @@ class DeckDetailView(DetailView):
     pk_url_kwarg = "deck_id"
 
     def get(self, request, *args, **kwargs):
-        deck = get_object_or_404(
+        self.deck = get_object_or_404(
             Deck.objects.select_related("creator"), id=kwargs.get("deck_id")
         )
 
-        if deck.private and deck.creator.id != request.user.id:
+        if self.deck.private and self.deck.creator.id != request.user.id:
             raise PermissionDenied()
 
         return super().get(request, *args, **kwargs)
@@ -45,10 +42,8 @@ class DeckDetailView(DetailView):
 
         if self.request.user.is_authenticated:
             queryset = queryset.annotate(
-                is_collected=Case(
-                    When(users=self.request.user.id, then=Value(True)),
-                    default=Value(False),
-                    output_field=BooleanField(),
+                is_collected=Exists(
+                    Deck.objects.filter(id=OuterRef("pk"), users=self.request.user.id)
                 )
             )
 
@@ -111,7 +106,6 @@ class DeckDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        deck = self.object
-        context["main_h1"] = f"Deck '{deck.title}'"
+        context["main_h1"] = f"Deck '{self.deck.title}'"
         context["head_title"] = f"{context['main_h1']} - FlashMode"
         return context
