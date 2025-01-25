@@ -24,9 +24,7 @@ class DeckListView(ListView):
         queryset = (
             super()
             .get_queryset()
-            .filter(
-                (Q(private=True) & Q(creator=self.request.user.id)) | Q(private=False)
-            )
+            .filter(Q(creator=self.request.user.id) | Q(private=False))
             .select_related("creator")
             .annotate(card_count=Count("cards"))
             .order_by("-create_date")
@@ -47,13 +45,10 @@ class DeckListView(ListView):
         collected_param = self.request.GET.get("collected")
 
         if collected_param == "true":
-            queryset = queryset.filter(
-                Q(creator=self.request.user.id) | Q(users=self.request.user.id)
-            )
+            queryset = queryset.filter(users=self.request.user.id)
+
         elif collected_param == "false":
-            queryset = queryset.exclude(
-                Q(creator=self.request.user.id) | Q(users=self.request.user.id)
-            )
+            queryset = queryset.exclude(users=self.request.user.id)
 
         return queryset
 

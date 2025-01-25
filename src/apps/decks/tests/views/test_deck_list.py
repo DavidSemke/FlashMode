@@ -80,27 +80,33 @@ class DeckListViewTest(TestCase):
         logged_in = self.client.login(username=self.user1.username, password="password")
         self.assertTrue(logged_in, "Login failed")
 
-        # Decks created by user are considered collected
+        # Decks created by user have not been collected
         res = self.client.get(self.url, query_params={"collected": "true"})
         self.assertEqual(res.status_code, 200)
-
         deck_list = res.context["deck_list"]
-        self.assertEqual(len(deck_list), 2)
+        self.assertEqual(len(deck_list), 0)
+
+        # Make user collect private deck made by them
+        deck1 = Deck.objects.get(title="I am a title 2", private=True)
+        deck1.users.add(self.user1)
+        # List the one collected deck
+        res = self.client.get(self.url, query_params={"collected": "true"})
+        self.assertEqual(res.status_code, 200)
+        deck_list = res.context["deck_list"]
+        self.assertEqual(len(deck_list), 1)
 
         # List all decks NOT collected by user
         res = self.client.get(self.url, query_params={"collected": "false"})
         self.assertEqual(res.status_code, 200)
-
         deck_list = res.context["deck_list"]
-        self.assertEqual(len(deck_list), 1)
+        self.assertEqual(len(deck_list), 2)
 
         # Make user collect deck not made by them
         foreign_deck = Deck.objects.get(title="I am a title 3")
         foreign_deck.users.add(self.user1)
-
         # List all decks collected by user
         res = self.client.get(self.url, query_params={"collected": "true"})
         self.assertEqual(res.status_code, 200)
 
         deck_list = res.context["deck_list"]
-        self.assertEqual(len(deck_list), 3)
+        self.assertEqual(len(deck_list), 2)
