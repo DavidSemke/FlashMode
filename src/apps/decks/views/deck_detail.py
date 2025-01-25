@@ -1,5 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from django.db.models import (
+    BooleanField,
+    Case,
     Count,
     DateField,
     ExpressionWrapper,
@@ -8,6 +10,8 @@ from django.db.models import (
     IntegerField,
     OuterRef,
     Subquery,
+    Value,
+    When,
 )
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
@@ -40,6 +44,14 @@ class DeckDetailView(DetailView):
         )
 
         if self.request.user.is_authenticated:
+            queryset = queryset.annotate(
+                is_collected=Case(
+                    When(users=self.request.user.id, then=Value(True)),
+                    default=Value(False),
+                    output_field=BooleanField(),
+                )
+            )
+
             last_played_query = (
                 StudySession.objects.filter(
                     student__id=self.request.user.id, deck__id=OuterRef("pk")

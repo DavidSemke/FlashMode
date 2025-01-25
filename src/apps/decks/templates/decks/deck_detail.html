@@ -29,19 +29,38 @@
                             <span id='play-deck-label' class='text-lg hidden sm:inline'>Play</span>
                         </a>
                     </li>
-                    {% if request.user.is_authenticated and request.user.id == deck.creator.id %}
+
+                    {% if request.user.is_authenticated %}
                         <li>
-                            <a href="{% url 'decks:deck_update' deck.id %}" aria-labelledby="edit-deck-label" class='btn btn-secondary flex gap-2'>
-                                <c-svg.edit_icon class='size-8' />
-                                <span id='edit-deck-label' class='text-lg hidden sm:inline'>Edit</span>
-                            </a>
+                            <button hx-post="{% url 'decks:deck_collect' deck.id %}" aria-labelledby="collect-deck-label" class='btn-secondary flex gap-2'>
+                                {% if deck.is_collected %}
+                                    <c-svg.collect_off_icon class='size-8' />
+                                    <span id='collect-deck-label' class='text-lg hidden sm:inline'>
+                                        Uncollect
+                                    </span>
+                                {% else %}
+                                    <c-svg.collect_icon class='size-8' />
+                                    <span id='collect-deck-label' class='text-lg hidden sm:inline'>
+                                        Collect
+                                    </span>
+                                {% endif %}
+                            </button>
                         </li>
-                        <li>
-                            <a href="{% url 'decks:deck_delete' deck.id %}" aria-labelledby="delete-deck-label" class='btn btn-secondary flex gap-2'>
-                                <c-svg.delete_icon class='size-8' />
-                                <span id='delete-deck-label' class='text-lg hidden sm:inline'>Delete</span>
-                            </a>
-                        </li>
+
+                        {% if request.user.id == deck.creator.id %}
+                            <li>
+                                <a href="{% url 'decks:deck_update' deck.id %}" aria-labelledby="edit-deck-label" class='btn btn-secondary flex gap-2'>
+                                    <c-svg.edit_icon class='size-8' />
+                                    <span id='edit-deck-label' class='text-lg hidden sm:inline'>Edit</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'decks:deck_delete' deck.id %}" aria-labelledby="delete-deck-label" class='btn btn-secondary flex gap-2'>
+                                    <c-svg.delete_icon class='size-8' />
+                                    <span id='delete-deck-label' class='text-lg hidden sm:inline'>Delete</span>
+                                </a>
+                            </li>
+                        {% endif %}
                     {% endif %}
                 </ul>
             </section>

@@ -48,7 +48,10 @@ class DeckCreateViewTest(TestCase):
 
         res = self.client.post(self.url, {"title": "title", "private": False})
         self.assertEqual(res.status_code, 302)
-        self.assertTrue(Deck.objects.filter(title="title").exists())
+        # User should automatically be added to users M:M relationship on deck create
+        self.assertTrue(
+            Deck.objects.filter(title="title", users=self.user1.id).exists()
+        )
 
 
 class DeckUpdateViewTest(TestCase):

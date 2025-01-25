@@ -17,7 +17,7 @@ class DeckDetailViewTest(TestCase):
         self.logger = logging.getLogger("django.request")
         return super().setUp()
 
-    def test_get_public_deck(self):
+    def test_get_guest_public_deck(self):
         deck = DeckFactory(creator=self.user1)
 
         with self.assertTemplateUsed("decks/deck_detail.html"):
@@ -39,7 +39,7 @@ class DeckDetailViewTest(TestCase):
         res = self.client.get(self.get_url(deck.id))
         self.assertEqual(res.status_code, 200)
 
-    def test_get_private_deck(self):
+    def test_get_guest_private_deck(self):
         deck = DeckFactory(creator=self.user1, private=True)
 
         with self.assertLogs("django.request", level="WARNING"):

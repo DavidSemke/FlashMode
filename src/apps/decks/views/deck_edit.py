@@ -20,7 +20,12 @@ class DeckCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
-        return super().form_valid(form)
+        # Save model
+        response = super().form_valid(form)
+        # Collect saved model
+        self.object.users.add(self.request.user)
+
+        return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
