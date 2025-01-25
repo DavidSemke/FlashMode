@@ -2585,8 +2585,8 @@ svg {
   left: 0.625rem;
 }
 
-.right-6 {
-  right: 1.5rem;
+.right-4 {
+  right: 1rem;
 }
 
 .top-0 {
@@ -2597,20 +2597,12 @@ svg {
   top: 50%;
 }
 
-.top-6 {
-  top: 1.5rem;
+.top-4 {
+  top: 1rem;
 }
 
 .top-\[calc\(var\(--h-topbar\)\+1rem\)\] {
   top: calc(var(--h-topbar) + 1rem);
-}
-
-.right-4 {
-  right: 1rem;
-}
-
-.top-4 {
-  top: 1rem;
 }
 
 .z-10 {

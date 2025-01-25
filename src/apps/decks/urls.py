@@ -2,6 +2,7 @@ from django.urls import path
 
 from .views.card_edit import CardCreateView, CardDeleteView, CardUpdateView
 from .views.card_list import CardListView
+from .views.deck_collect import DeckCollectView
 from .views.deck_detail import DeckDetailView
 from .views.deck_edit import DeckCreateView, DeckDeleteView, DeckUpdateView
 from .views.deck_list import DeckListView
@@ -16,6 +17,7 @@ urlpatterns = [
     path("<int:deck_id>/update/", DeckUpdateView.as_view(), name="deck_update"),
     path("<int:deck_id>/delete/", DeckDeleteView.as_view(), name="deck_delete"),
     path("<int:deck_id>/play/", DeckPlayView.as_view(), name="deck_play"),
+    path("<int:deck_id>/collect/", DeckCollectView.as_view(), name="deck_collect"),
     path("<int:deck_id>/cards/", CardListView.as_view(), name="card_list"),
     path("<int:deck_id>/cards/create/", CardCreateView.as_view(), name="card_create"),
     path(
