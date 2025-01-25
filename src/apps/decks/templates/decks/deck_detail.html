@@ -32,19 +32,22 @@
 
                     {% if request.user.is_authenticated %}
                         <li>
-                            <button hx-post="{% url 'decks:deck_collect' deck.id %}" aria-labelledby="collect-deck-label" class='btn-secondary flex gap-2'>
-                                {% if deck.is_collected %}
-                                    <c-svg.collect_off_icon class='size-8' />
-                                    <span id='collect-deck-label' class='text-lg hidden sm:inline'>
-                                        Uncollect
-                                    </span>
-                                {% else %}
-                                    <c-svg.collect_icon class='size-8' />
-                                    <span id='collect-deck-label' class='text-lg hidden sm:inline'>
-                                        Collect
-                                    </span>
-                                {% endif %}
-                            </button>
+                            <form action="{% url 'decks:deck_collect' deck.id %}" method='post'>
+                                {% csrf_token %}
+                                <button type='submit' aria-labelledby="collect-deck-label" class='btn-secondary flex gap-2'>
+                                    {% if deck.is_collected %}
+                                        <c-svg.collect_off_icon class='size-8' />
+                                        <span id='collect-deck-label' class='text-lg hidden sm:inline'>
+                                            Uncollect
+                                        </span>
+                                    {% else %}
+                                        <c-svg.collect_icon class='size-8' />
+                                        <span id='collect-deck-label' class='text-lg hidden sm:inline'>
+                                            Collect
+                                        </span>
+                                    {% endif %}
+                                </button>
+                            </form>
                         </li>
 
                         {% if request.user.id == deck.creator.id %}
