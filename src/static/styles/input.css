@@ -42,6 +42,10 @@
         @apply input input-accent input-bordered;
     }
 
+    input:not([type=search]) {
+        @apply input input-accent input-bordered;
+    }
+
     input[type=checkbox] {
         @apply checkbox checkbox-accent size-8;
     }
@@ -50,7 +54,7 @@
         @apply textarea textarea-accent textarea-bordered;
     }
 
-    input, input[type=checkbox], textarea {
+    input, input:not([type=search]), input[type=checkbox], textarea {
         @apply bg-black rounded-lg;
     }
 
