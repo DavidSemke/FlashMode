@@ -34,7 +34,7 @@
             </header>
             <section class='flex flex-col gap-4'>
                 <h3>Views</h3>
-                <div class='flex gap-4 justify-center sm:justify-start'>
+                <div class='flex gap-4 flex-wrap'>
                     <a href="{% url 'decks:deck_list' %}?creator_id={{ request.user.id }}" class="btn btn-secondary">Created</a>
                     <a href="{% url 'decks:deck_list' %}?collected=true" class="btn btn-secondary">Collected</a>
                     <a href="{% url 'decks:deck_list' %}?collected=false" class="btn btn-secondary">Not Collected</a>
