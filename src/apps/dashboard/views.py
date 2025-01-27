@@ -29,8 +29,12 @@ class IndexView(LoginRequiredMixin, TemplateView):
         ).count()
         profile = Profile.objects.get(id=request.user.id)
         self.weekly_goal = profile.weekly_card_count_goal
-        progress_percent = round(week_card_count / self.weekly_goal * 100)
-        self.weekly_goal_progress = min(100, progress_percent)
+        self.weekly_goal_progress = None
+
+        if self.weekly_goal != 0:
+            progress_percent = round(week_card_count / self.weekly_goal * 100)
+            self.weekly_goal_progress = min(100, progress_percent)
+
         self.recent_decks = (
             Deck.objects.filter(
                 study_sessions__create_date__gte=most_recent_sunday,

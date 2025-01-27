@@ -22,8 +22,12 @@
                 <button type='submit' class='btn-primary'>Submit</button>
                 <button type='reset' class='btn-primary' @click="showWeeklyGoalForm = false">Cancel</button>
             </form>
-            <c-feedback.progressbar label_prefix="weekly goal" valuenow="{{ weekly_goal_progress }}" />
-            <p>Your weekly goal is <span class='font-bold text-accent'>{{ weekly_goal }}</span> cards.</p>
+            {% if weekly_goal == 0 %}
+                <p>You do not have a weekly goal!</p>
+            {% else %}
+                <c-feedback.progressbar label_prefix="weekly goal" valuenow="{{ weekly_goal_progress }}" />
+                <p>Your weekly goal is <span class='font-bold text-accent'>{{ weekly_goal }}</span> cards.</p>
+            {% endif %}
         </section>
         <section class="flex flex-col gap-6">
             <header class='flex items-center gap-4'>
