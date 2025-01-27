@@ -18,7 +18,7 @@ from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Email config (disabled)
+# Email config
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # EMAIL_HOST = config("EMAIL_HOST", default="smtp.gmail.com")
 # EMAIL_PORT = config("EMAIL_PORT", default="587")
@@ -58,8 +58,8 @@ INSTALLED_APPS = [
     "allauth_ui",  # Put allauth_ui before allauth
     "allauth",
     "allauth.account",
-    "allauth.socialaccount",
-    "allauth.socialaccount.providers.github",
+    # "allauth.socialaccount",
+    # "allauth.socialaccount.providers.github",
     "widget_tweaks",  # Needed for allauth ui
     "slippers",  # Needed for allauth ui
     "django_cotton",
