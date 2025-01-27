@@ -139,14 +139,16 @@ DATABASE_URL = config("DATABASE_URL", default=None)
 if DATABASE_URL is not None:
     import dj_database_url
 
-    DATABASES = {
-        "default": dj_database_url.config(
-            default=str(DATABASE_URL),
-            conn_max_age=CONN_MAX_AGE,
-            conn_health_checks=True,
-        )
-    }
+    db_config = dj_database_url.config(
+        default=str(DATABASE_URL),
+        conn_max_age=CONN_MAX_AGE,
+        conn_health_checks=True,
+    )
+    db_config["ATOMIC_REQUESTS"] = True
 
+    DATABASES = {
+        "default": db_config,
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
