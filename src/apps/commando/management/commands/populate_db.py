@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
         users = self._insert_users()
 
-        deck_count = 10
+        deck_count = 12
         self._insert_decks(users, deck_count)
 
         card_count = deck_count * 10
