@@ -39,12 +39,12 @@ DEBUG = config("DJANGO_DEBUG", cast=bool)
 
 INTERNAL_IPS = ["127.0.0.1", "localhost"]
 
-ALLOWED_HOSTS = [
-    # '.railway.app'
-]
+ALLOWED_HOSTS = [*INTERNAL_IPS]
 
-if DEBUG:
-    ALLOWED_HOSTS += INTERNAL_IPS.copy()
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 INSTALLED_APPS = [
     # My apps
@@ -116,10 +116,10 @@ TEMPLATES = [
     },
 ]
 
+WSGI_APPLICATION = "flash_mode.wsgi.application"
+
 # Django-cotton
 COTTON_DIR = BASE_DIR / "apps/core/templates/core/components"
-
-WSGI_APPLICATION = "flash_mode.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
