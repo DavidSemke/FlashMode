@@ -40,13 +40,11 @@ DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
 INTERNAL_IPS = ["127.0.0.1", "localhost"]
 
 ALLOWED_HOSTS = [*INTERNAL_IPS]
-APP_NAME = config("FLY_APP_NAME")
-
-if APP_NAME is not None:
-    ALLOWED_HOSTS += [f"{APP_NAME}.fly.dev"]
-    CSRF_TRUSTED_ORIGINS = [f"https://{APP_NAME}.fly.dev"]
 
 if not DEBUG:
+    APP_NAME = "flashmode"
+    ALLOWED_HOSTS += [f"{APP_NAME}.fly.dev"]
+    CSRF_TRUSTED_ORIGINS = [f"https://{APP_NAME}.fly.dev"]
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
