@@ -35,7 +35,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 SECRET_KEY = config("DJANGO_SECRET_KEY")
-DEBUG = config("DJANGO_DEBUG", cast=bool)
+DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
 
 INTERNAL_IPS = ["127.0.0.1", "localhost"]
 
