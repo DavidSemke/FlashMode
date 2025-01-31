@@ -16,9 +16,12 @@ Users can study a subject by using flash cards organized into decks. Features in
 Technologies used include:
 
 - Django
+- django-allauth
+- Django Cotton
 - HTMX
 - Alpine.js
 - Tailwind
 - DaisyUI
-- django-allauth
 - PostgreSQL
+- Factory Boy
+- unittest
