@@ -1,12 +1,9 @@
 # FlashMode
 
-* This project is in the midst of development.
+[Deployed on Fly.io](https://flashmode.fly.dev/)
 
-<!-- [Deployed on ???](url) -->
-
-<!-- Screenshot of index page:
-
-![FlashMode's index page](/documentation/index-page.png?raw=true) -->
+Screenshot of index page:
+![FlashMode's index page](/documentation/index-page.png?raw=true)
 
 This is the full stack codebase for the FlashMode web app.
 Users can study a subject by using flash cards organized into decks. Features include:
@@ -23,6 +20,5 @@ Technologies used include:
 - Alpine.js
 - Tailwind
 - DaisyUI
-- Penguin UI
 - django-allauth
 - PostgreSQL
