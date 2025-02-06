@@ -1,8 +1,8 @@
-from django.test import SimpleTestCase
+from django.test import TestCase
 from django.urls import reverse
 
 
-class IndexViewTest(SimpleTestCase):
+class IndexViewTest(TestCase):
     def test_get(self):
         with self.assertTemplateUsed("core/index.html"):
             res = self.client.get(reverse("core:index"))
