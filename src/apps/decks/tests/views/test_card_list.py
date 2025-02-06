@@ -1,5 +1,3 @@
-import logging
-
 from django.conf import settings
 from django.test import TestCase
 from django.urls import reverse
@@ -16,7 +14,6 @@ class CardListViewTest(TestCase):
         self.user1 = UserFactory()
         self.deck = DeckFactory(creator=self.user1)
         self.url = reverse("decks:card_list", kwargs={"deck_id": self.deck.id})
-        self.logger = logging.getLogger("django.request")
         return super().setUp()
 
     def test_get_guest(self):

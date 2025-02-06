@@ -1,5 +1,3 @@
-import logging
-
 from django.conf import settings
 from django.forms import ModelForm
 from django.test import TestCase
@@ -15,7 +13,6 @@ class DeckCreateViewTest(TestCase):
 
     def setUp(self):
         self.user1 = UserFactory()
-        self.logger = logging.getLogger("django.request")
         return super().setUp()
 
     def test_get_guest(self):

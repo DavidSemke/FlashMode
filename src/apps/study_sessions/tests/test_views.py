@@ -1,5 +1,3 @@
-import logging
-
 from django.conf import settings
 from django.test import TestCase
 from django.urls import reverse
@@ -26,7 +24,6 @@ class StudySessionViewTest(TestCase):
             "study_sessions:study_session",
             kwargs={"study_session_id": self.study_session1.id},
         )
-        self.logger = logging.getLogger("django.request")
 
     def test_get_guest(self):
         res = self.client.get(self.url)
@@ -90,7 +87,6 @@ class ResponseViewTest(TestCase):
             "study_sessions:response",
             kwargs={"study_session_id": self.study_session1.id},
         )
-        self.logger = logging.getLogger("django.request")
 
     def test_get_login(self):
         logged_in = self.client.login(username=self.user1.username, password="password")

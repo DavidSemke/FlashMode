@@ -1,5 +1,3 @@
-import logging
-
 from django.conf import settings
 from django.test import TestCase
 from django.urls import reverse
@@ -15,7 +13,6 @@ class DeckCollectViewTest(TestCase):
 
     def setUp(self):
         self.user1 = UserFactory()
-        self.logger = logging.getLogger("django.request")
         return super().setUp()
 
     def test_get_login(self):

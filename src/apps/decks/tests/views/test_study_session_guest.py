@@ -1,5 +1,3 @@
-import logging
-
 from django.test import TestCase
 from django.urls import reverse
 
@@ -15,7 +13,6 @@ class StudySessionGuestViewTest(TestCase):
         self.url = reverse(
             "decks:study_session_guest", kwargs={"deck_id": self.deck1.id}
         )
-        self.logger = logging.getLogger("django.request")
         return super().setUp()
 
     def test_get_guest_public_deck(self):

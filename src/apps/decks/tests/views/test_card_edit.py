@@ -1,5 +1,3 @@
-import logging
-
 from django.conf import settings
 from django.forms import ModelForm
 from django.test import TestCase
@@ -17,7 +15,6 @@ class CardCreateViewTest(TestCase):
         self.user1 = UserFactory()
         deck = DeckFactory(creator=self.user1)
         self.url = reverse("decks:card_create", kwargs={"deck_id": deck.id})
-        self.logger = logging.getLogger("django.request")
         return super().setUp()
 
     def test_get_guest(self):

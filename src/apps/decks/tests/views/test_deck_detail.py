@@ -1,5 +1,3 @@
-import logging
-
 from django.test import TestCase
 from django.urls import reverse
 
@@ -14,7 +12,6 @@ class DeckDetailViewTest(TestCase):
 
     def setUp(self):
         self.user1 = UserFactory()
-        self.logger = logging.getLogger("django.request")
         return super().setUp()
 
     def test_get_guest_public_deck(self):
