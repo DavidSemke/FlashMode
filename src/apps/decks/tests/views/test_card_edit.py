@@ -194,5 +194,4 @@ class CardDeleteViewTest(TestCase):
         res = self.client.post(self.url)
         self.assertEqual(res.status_code, 302)
 
-        with self.assertRaises(Card.DoesNotExist):
-            Card.objects.get(id=self.card1.id)
+        self.assertFalse(Card.objects.filter(id=self.card1.id).exists())

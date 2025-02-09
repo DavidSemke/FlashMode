@@ -167,5 +167,4 @@ class DeckDeleteViewTest(TestCase):
         res = self.client.post(self.url)
         self.assertEqual(res.status_code, 302)
 
-        with self.assertRaises(Deck.DoesNotExist):
-            Deck.objects.get(id=self.deck1.id)
+        self.assertFalse(Deck.objects.filter(id=self.deck1.id).exists())

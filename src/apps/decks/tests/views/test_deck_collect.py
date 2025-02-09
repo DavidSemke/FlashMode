@@ -64,7 +64,7 @@ class DeckCollectViewTest(TestCase):
         )
 
         # Deck should now reference user2 in M to M relationship (collected)
-        Deck.objects.filter(users=user2.id).get(id=deck.id)
+        self.assertTrue(Deck.objects.filter(id=deck.id, users=user2.id).exists())
 
     def test_post_login_private_deck_creator(self):
         deck = DeckFactory(creator=self.user1, private=True)
