@@ -43,15 +43,16 @@ class StudySessionViewTest(TestCase):
         logged_in = self.client.login(username=self.user1.username, password="password")
         self.assertTrue(logged_in, "Login failed")
 
-        res = self.client.get(self.url)
-        self.assertEqual(res.status_code, 200)
-        self.assertIn("head_title", res.context)
-        self.assertIn("main_h1", res.context)
-        self.assertIn("deck_id", res.context)
-        self.assertIn("ss_id", res.context)
-        self.assertIn("card_list", res.context)
-        self.assertIn("card_count", res.context)
-        self.assertIn("correct_count", res.context)
+        with self.assertTemplateUsed("study_sessions/study_session.html"):
+            res = self.client.get(self.url)
+            self.assertEqual(res.status_code, 200)
+            self.assertIn("head_title", res.context)
+            self.assertIn("main_h1", res.context)
+            self.assertIn("deck_id", res.context)
+            self.assertIn("ss_id", res.context)
+            self.assertIn("card_list", res.context)
+            self.assertIn("card_count", res.context)
+            self.assertIn("correct_count", res.context)
 
     def test_get_login_deck_deleted_study_session_creator(self):
         Deck.objects.get(id=self.deck1.id).delete()
