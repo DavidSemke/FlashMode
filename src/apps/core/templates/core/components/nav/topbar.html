@@ -22,7 +22,7 @@
                 </span>
             </a>
             {# Desktop searchbar #}
-            <c-search.searchbar action="{% url 'decks:deck_list' %}" search_item_name='deck' class='hidden sm:block'/>
+            <c-form.searchbar action="{% url 'decks:deck_list' %}" search_item_name='deck' class='hidden sm:block'/>
         </div>
 
         {# Desktop menu #}
@@ -45,5 +45,5 @@
     </nav>
 
     {# Mobile searchbar #}
-    <c-search.searchbar action="{% url 'decks:deck_list' %}" search_item_name='deck' id='mobile-topbar-searchbar' x-cloak x-show="searchbarIsOpen" x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" class="absolute top-[calc(var(--h-topbar)+1rem)] sm:hidden"/>
+    <c-form.searchbar action="{% url 'decks:deck_list' %}" search_item_name='deck' id='mobile-topbar-searchbar' x-cloak x-show="searchbarIsOpen" x-transition:enter="transition motion-reduce:transition-none ease-out duration-300" x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0" x-transition:leave="transition motion-reduce:transition-none ease-out duration-300" x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" class="absolute top-[calc(var(--h-topbar)+1rem)] sm:hidden"/>
 </div>
