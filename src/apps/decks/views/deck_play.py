@@ -3,6 +3,7 @@ from random import shuffle
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Prefetch
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import RedirectView
@@ -23,15 +24,22 @@ class DeckPlayView(RedirectView):
         if deck.private and request.user.id != deck.creator.id:
             raise PermissionDenied()
 
+        # deck.cards is a list of card ids
+        card_list = list(deck.cards.all())
+
+        if len(card_list) == 0:
+            return HttpResponse(
+                content="A deck without cards cannot be played.", status=422
+            )
+
+        # By default, card order is random
+        shuffle(card_list)
+
         if request.user.is_authenticated:
             with transaction.atomic():
                 self.study_session = StudySession.objects.create(
                     student=request.user, deck=deck
                 )
-
-                # deck.cards is a list of card ids
-                card_list = list(deck.cards.all())
-                shuffle(card_list)
 
                 # Method bulk_create is not used because it skips
                 # the save() method

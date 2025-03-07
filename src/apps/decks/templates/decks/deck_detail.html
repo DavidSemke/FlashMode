@@ -22,50 +22,60 @@
             </header>
             <section>
                 <h2>Actions</h2>
-                <ul class='flex flex-wrap gap-4'>
-                    <li>
-                        <a href="{% url 'decks:deck_play' deck.id %}" aria-labelledby="play-deck-label" class='btn btn-primary flex gap-2'>
-                            <c-svg.play_icon class='size-8' />
-                            <span id='play-deck-label' class='text-lg hidden sm:inline'>Play</span>
-                        </a>
-                    </li>
 
-                    {% if request.user.is_authenticated %}
-                        <li>
-                            <form action="{% url 'decks:deck_collect' deck.id %}" method='post'>
-                                {% csrf_token %}
-                                <button type='submit' aria-labelledby="collect-deck-label" class='btn-secondary flex gap-2'>
-                                    {% if deck.is_collected %}
-                                        <c-svg.collect_off_icon class='size-8' />
-                                        <span id='collect-deck-label' class='text-lg hidden sm:inline'>
-                                            Uncollect
-                                        </span>
-                                    {% else %}
-                                        <c-svg.collect_icon class='size-8' />
-                                        <span id='collect-deck-label' class='text-lg hidden sm:inline'>
-                                            Collect
-                                        </span>
-                                    {% endif %}
-                                </button>
-                            </form>
-                        </li>
+                {% if deck.card_count == 0 %}
+                    <p>This deck does not have any cards, so it cannot be played.</p>
+                {% endif %}
 
-                        {% if request.user.id == deck.creator.id %}
+                {% if request.user.is_authenticated or deck.card_count != 0 %}
+                    <ul class='flex flex-wrap gap-4'>
+
+                        {% if deck.card_count != 0 %}
                             <li>
-                                <a href="{% url 'decks:deck_update' deck.id %}" aria-labelledby="edit-deck-label" class='btn btn-secondary flex gap-2'>
-                                    <c-svg.edit_icon class='size-8' />
-                                    <span id='edit-deck-label' class='text-lg hidden sm:inline'>Edit</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'decks:deck_delete' deck.id %}" aria-labelledby="delete-deck-label" class='btn btn-secondary flex gap-2'>
-                                    <c-svg.delete_icon class='size-8' />
-                                    <span id='delete-deck-label' class='text-lg hidden sm:inline'>Delete</span>
+                                <a href="{% url 'decks:deck_play' deck.id %}" aria-labelledby="play-deck-label" class='btn btn-primary flex gap-2'>
+                                    <c-svg.play_icon class='size-8' />
+                                    <span id='play-deck-label' class='text-lg hidden sm:inline'>Play</span>
                                 </a>
                             </li>
                         {% endif %}
-                    {% endif %}
-                </ul>
+
+                        {% if request.user.is_authenticated %}
+                            <li>
+                                <form action="{% url 'decks:deck_collect' deck.id %}" method='post'>
+                                    {% csrf_token %}
+                                    <button type='submit' aria-labelledby="collect-deck-label" class='btn-secondary flex gap-2'>
+                                        {% if deck.is_collected %}
+                                            <c-svg.collect_off_icon class='size-8' />
+                                            <span id='collect-deck-label' class='text-lg hidden sm:inline'>
+                                                Uncollect
+                                            </span>
+                                        {% else %}
+                                            <c-svg.collect_icon class='size-8' />
+                                            <span id='collect-deck-label' class='text-lg hidden sm:inline'>
+                                                Collect
+                                            </span>
+                                        {% endif %}
+                                    </button>
+                                </form>
+                            </li>
+
+                            {% if request.user.id == deck.creator.id %}
+                                <li>
+                                    <a href="{% url 'decks:deck_update' deck.id %}" aria-labelledby="edit-deck-label" class='btn btn-secondary flex gap-2'>
+                                        <c-svg.edit_icon class='size-8' />
+                                        <span id='edit-deck-label' class='text-lg hidden sm:inline'>Edit</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'decks:deck_delete' deck.id %}" aria-labelledby="delete-deck-label" class='btn btn-secondary flex gap-2'>
+                                        <c-svg.delete_icon class='size-8' />
+                                        <span id='delete-deck-label' class='text-lg hidden sm:inline'>Delete</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                {% endif %}
             </section>
             <section>
                 <h2>Stats</h2>
