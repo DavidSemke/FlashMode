@@ -1,4 +1,5 @@
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import TemplateView
@@ -23,12 +24,20 @@ class StudySessionGuestView(TemplateView):
         if self.deck.private:
             raise PermissionDenied()
 
+        self.card_list = list(self.deck.cards.values())
+        self.card_count = len(self.card_list)
+
+        if self.card_count == 0:
+            return HttpResponse(
+                content="All cards from this deck have been deleted.", status=422
+            )
+
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["card_list"] = list(self.deck.cards.values())
-        context["card_count"] = len(context["card_list"])
+        context["card_list"] = self.card_list
+        context["card_count"] = self.card_count
         context["main_h1"] = f"Study Session - Deck '{self.deck.title}'"
         context["head_title"] = f"{context['main_h1']} - FlashMode"
         return context

@@ -40,13 +40,17 @@ class StudySessionView(LoginRequiredMixin, TemplateView):
             .filter(study_session=ss_id)
             .order_by("position")
         )
-        unused_responses = []
+
+        if len(responses) == 0:
+            return HttpResponse(
+                content="All cards from this deck have been deleted.", status=422
+            )
+
         correct_responses = []
         self.cards = []
 
         for res in responses:
             if res.is_correct is None:
-                unused_responses.append(res)
                 self.cards.append(
                     {
                         "id": res.card.id,

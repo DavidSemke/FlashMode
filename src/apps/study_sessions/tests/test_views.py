@@ -5,21 +5,23 @@ from django.utils import timezone
 
 from ...core.model_factories import UserFactory
 from ...decks.model_factories import CardFactory, DeckFactory
-from ...decks.models import Deck
+from ...decks.models import Card, Deck
 from ..model_factories import ResponseFactory, StudySessionFactory
 from ..models import Response, StudySession
 
 
 class StudySessionViewTest(TestCase):
-    def get_url(self, ss_id):
-        return reverse(
-            "study_sessions:study_session", kwargs={"study_session_id": ss_id}
-        )
-
     def setUp(self):
         self.user1 = UserFactory()
         self.deck1 = DeckFactory(creator=self.user1)
+        self.card1 = CardFactory(deck=self.deck1)
         self.study_session1 = StudySessionFactory(student=self.user1, deck=self.deck1)
+        ResponseFactory(
+            study_session=self.study_session1,
+            card=self.card1,
+            position=1,
+            is_correct=None,
+        )
         self.url = reverse(
             "study_sessions:study_session",
             kwargs={"study_session_id": self.study_session1.id},
@@ -75,6 +77,16 @@ class StudySessionViewTest(TestCase):
         with self.assertLogs("django.request", level="WARNING"):
             res = self.client.get(self.url)
             self.assertEqual(res.status_code, 410)
+
+    def test_get_login_empty_deck_study_session_creator(self):
+        Card.objects.get(id=self.card1.id).delete()
+
+        logged_in = self.client.login(username=self.user1.username, password="password")
+        self.assertTrue(logged_in, "Login failed")
+
+        with self.assertLogs("django.request", level="WARNING"):
+            res = self.client.get(self.url)
+            self.assertEqual(res.status_code, 422)
 
 
 class ResponseViewTest(TestCase):

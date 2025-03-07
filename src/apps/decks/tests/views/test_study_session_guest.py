@@ -2,14 +2,15 @@ from django.test import TestCase
 from django.urls import reverse
 
 from ....core.model_factories import UserFactory
-from ...model_factories import DeckFactory
-from ...models import Deck
+from ...model_factories import CardFactory, DeckFactory
+from ...models import Card, Deck
 
 
 class StudySessionGuestViewTest(TestCase):
     def setUp(self):
         self.user1 = UserFactory()
         self.deck1 = DeckFactory(creator=self.user1)
+        self.card1 = CardFactory(deck=self.deck1)
         self.url = reverse(
             "decks:study_session_guest", kwargs={"deck_id": self.deck1.id}
         )
@@ -24,6 +25,13 @@ class StudySessionGuestViewTest(TestCase):
         self.assertIn("card_count", res.context)
         self.assertIn("main_h1", res.context)
         self.assertIn("head_title", res.context)
+
+    def test_get_guest_empty_public_deck(self):
+        Card.objects.get(id=self.card1.id).delete()
+
+        with self.assertLogs("django.request", level="WARNING"):
+            res = self.client.get(self.url)
+            self.assertEqual(res.status_code, 422)
 
     def test_get_login_public_deck(self):
         user2 = UserFactory()
