@@ -16,6 +16,7 @@ from django.views.generic.detail import DetailView
 
 from ...study_sessions.models import Response, StudySession
 from ..models import Deck
+from .utils.context import set_context_headings
 
 
 class DeckDetailView(DetailView):
@@ -106,6 +107,5 @@ class DeckDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["main_h1"] = f"Deck '{self.deck.title}'"
-        context["head_title"] = f"{context['main_h1']} - FlashMode"
+        set_context_headings(context, f"Deck '{self.deck.title}'")
         return context

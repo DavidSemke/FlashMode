@@ -1,13 +1,14 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from ..forms import DeckForm
 from ..models import Deck
+from .utils.auth import get_creator_deck
+from .utils.context import set_context_headings, set_prefixed_deck_context_headings
 
 
 class DeckCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -29,9 +30,8 @@ class DeckCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        set_context_headings(context, "Create Metadata - New Deck")
         context["is_create_view"] = True
-        context["main_h1"] = "Create Metadata - New Deck"
-        context["head_title"] = f"{context["main_h1"]} - FlashMode"
         return context
 
 
@@ -45,19 +45,13 @@ class DeckUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         if not request.user.is_authenticated:
             return redirect(settings.LOGIN_URL)
 
-        deck = get_object_or_404(
-            Deck.objects.select_related("creator"), id=kwargs.get("deck_id")
-        )
-
-        if deck.creator.id != request.user.id:
-            raise PermissionDenied()
+        get_creator_deck(request.user, kwargs.get("deck_id"))
 
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["main_h1"] = f"Update Metadata - Deck '{context["deck"].title}'"
-        context["head_title"] = f"{context["main_h1"]} - FlashMode"
+        set_prefixed_deck_context_headings(context, "Update Metadata")
         return context
 
 
@@ -70,12 +64,7 @@ class DeckDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         if not request.user.is_authenticated:
             return redirect(settings.LOGIN_URL)
 
-        deck = get_object_or_404(
-            Deck.objects.select_related("creator"), id=kwargs.get("deck_id")
-        )
-
-        if deck.creator.id != request.user.id:
-            raise PermissionDenied()
+        get_creator_deck(request.user, kwargs.get("deck_id"))
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -87,6 +76,5 @@ class DeckDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["main_h1"] = f"Delete Deck '{context["deck"].title}'"
-        context["head_title"] = f"{context["main_h1"]} - FlashMode"
+        set_context_headings(context, f"Delete Deck '{context["deck"].title}'")
         return context

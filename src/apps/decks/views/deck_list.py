@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.views.generic.list import ListView
 
 from ..models import Deck
+from .utils.context import set_context_headings
 
 
 class DeckListView(ListView):
@@ -54,6 +55,5 @@ class DeckListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["main_h1"] = "Decks"
-        context["head_title"] = f"{context['main_h1']} - FlashMode"
+        set_context_headings(context, "Decks")
         return context
