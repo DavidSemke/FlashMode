@@ -7,19 +7,21 @@
                 <h1 class='text-xl'>{{ title }}</h1>
             </a>
         </header>
-        <section class='flex gap-12'>
-            <div class='flex flex-col'>
-                <span class='font-bold'>By</span>
-                <span>{{ creator }}</span>
-            </div>
-            <div class='flex flex-col'>
-                <span class='font-bold'>Created</span>
-                <span>{{ create_date }}</span>
-            </div>
-            <div class='flex flex-col'>
-                <span class='font-bold'>Size</span>
-                <span>{{ card_count }}</span>
-            </div>
+        <section>
+            <dl class='flex gap-12'>
+                <div class='flex flex-col'>
+                    <dt>By</dt>
+                    <dd>{{ creator }}</dd>
+                </div>
+                <div class='flex flex-col'>
+                    <dt>Created</dt>
+                    <dd>{{ create_date }}</dd>
+                </div>
+                <div class='flex flex-col'>
+                    <dt>Size</dt>
+                    <dd>{{ card_count }}</span>
+                </div>
+            </dl>
         </section>
     </article>
 </li>
