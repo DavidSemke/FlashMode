@@ -10,24 +10,28 @@
                     <c-svg.edit_icon class='size-6' />
                 </button>
             </header>
-            <form
-                method='post'
-                action="{% url 'dashboard:weekly_goal_update' %}"
-                x-cloak
-                x-show="showWeeklyGoalForm"
-                class='flex gap-4 w-full'
-            >
-                {% csrf_token %}
-                <input type="number" id='weekly_goal' name='weekly_goal' min='0' max='999' value="{{ weekly_goal }}">
-                <button type='submit' class='btn-primary'>Submit</button>
-                <button type='reset' class='btn-primary' @click="showWeeklyGoalForm = false">Cancel</button>
-            </form>
-            {% if weekly_goal == 0 %}
-                <p>You do not have a weekly goal!</p>
-            {% else %}
-                <c-feedback.progressbar label_prefix="weekly goal" valuenow="{{ weekly_goal_progress }}" />
-                <p>Your weekly goal is <span class='font-bold text-accent'>{{ weekly_goal }}</span> cards.</p>
-            {% endif %}
+            {% block weekly_goal_section %}
+                <section class='flex flex-col gap-4'>
+                    <form
+                        hx-post="{% url 'dashboard:weekly_goal_update' %}"
+                        hx-target="closest section"
+                        hx-swap="outerHTML"
+                        x-cloak
+                        x-show="showWeeklyGoalForm"
+                        class='flex gap-4 w-full'
+                    >
+                        <input type="number" id='weekly_goal' name='weekly_goal' min='0' max='999' value="{{ weekly_goal }}">
+                        <button type='submit' class='btn-primary' @click="showWeeklyGoalForm = false">Submit</button>
+                        <button type='reset' class='btn-primary' @click="showWeeklyGoalForm = false">Cancel</button>
+                    </form>
+                    {% if weekly_goal == 0 %}
+                        <p>You do not have a weekly goal!</p>
+                    {% else %}
+                        <c-feedback.progressbar label_prefix="weekly goal" valuenow="{{ weekly_goal_progress }}" />
+                        <p>Your weekly goal is <span class='font-bold text-accent'>{{ weekly_goal }}</span> cards.</p>
+                    {% endif %}
+                </section>
+            {% endblock %}
         </section>
         <section class="flex flex-col gap-6">
             <header class='flex items-center gap-4'>

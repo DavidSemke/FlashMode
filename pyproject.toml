@@ -25,6 +25,7 @@ gunicorn = "^23.0.0"
 rich = "^13.9.4"
 django-browser-reload = "^1.17.0"
 django-debug-toolbar = "^5.0.1"
+django-render-block = "^0.10"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.0.1"

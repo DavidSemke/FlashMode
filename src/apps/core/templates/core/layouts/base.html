@@ -6,7 +6,7 @@
     <title>{{ head_title }}</title>
     <c-metadata.inner_head />
   </head>
-  <body>
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     <c-nav.topbar />
     <c-feedback.messages :messages='messages'/>
     <div class='flex min-h-screen-ex-topbar column-view m-auto'>
