@@ -2,9 +2,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.db.models import Exists, OuterRef
-from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.views.generic import View
+from render_block import render_block_to_string
 
 from ...decks.models import Deck
 
@@ -29,7 +30,16 @@ class DeckCollectView(LoginRequiredMixin, View):
 
         if deck.is_collected:
             deck.users.remove(User.objects.get(id=request.user.id))
+            deck.is_collected = False
         else:
             deck.users.add(User.objects.get(id=request.user.id))
+            deck.is_collected = True
 
-        return redirect(reverse("decks:deck_detail", kwargs={"deck_id": deck.id}))
+        html = render_block_to_string(
+            "decks/deck_detail.html",
+            "deck_collect_button",
+            {"deck": deck},
+            request,
+        )
+
+        return HttpResponse(html)
