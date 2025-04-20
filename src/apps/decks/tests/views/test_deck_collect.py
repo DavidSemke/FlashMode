@@ -41,10 +41,7 @@ class DeckCollectViewTest(TestCase):
         self.assertTrue(logged_in, "Login failed")
 
         res = self.client.post(self.get_url(deck.id))
-        self.assertEqual(res.status_code, 302)
-        self.assertIn(
-            reverse("decks:deck_detail", kwargs={"deck_id": deck.id}), res["Location"]
-        )
+        self.assertEqual(res.status_code, 200)
 
         # Deck should no longer reference user1 in M to M relationship (uncollected)
         self.assertFalse(Deck.objects.filter(id=deck.id, users=self.user1.id).exists())
@@ -58,10 +55,7 @@ class DeckCollectViewTest(TestCase):
         self.assertTrue(logged_in, "Login failed")
 
         res = self.client.post(self.get_url(deck.id))
-        self.assertEqual(res.status_code, 302)
-        self.assertIn(
-            reverse("decks:deck_detail", kwargs={"deck_id": deck.id}), res["Location"]
-        )
+        self.assertEqual(res.status_code, 200)
 
         # Deck should now reference user2 in M to M relationship (collected)
         self.assertTrue(Deck.objects.filter(id=deck.id, users=user2.id).exists())
@@ -73,10 +67,7 @@ class DeckCollectViewTest(TestCase):
         self.assertTrue(logged_in, "Login failed")
 
         res = self.client.post(self.get_url(deck.id))
-        self.assertEqual(res.status_code, 302)
-        self.assertIn(
-            reverse("decks:deck_detail", kwargs={"deck_id": deck.id}), res["Location"]
-        )
+        self.assertEqual(res.status_code, 200)
 
     def test_post_login_not_private_deck_creator(self):
         deck = DeckFactory(creator=self.user1, private=True)

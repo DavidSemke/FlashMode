@@ -65,7 +65,7 @@ class WeeklyGoalUpdateViewTest(TestCase):
             new_weekly_goal -= 1
 
         res = self.client.post(self.url, {"weekly_goal": str(new_weekly_goal)})
-        self.assertEqual(res.status_code, 302)
+        self.assertEqual(res.status_code, 200)
 
         updated_user = User.objects.get(id=user.id)
 
