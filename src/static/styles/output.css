@@ -3367,6 +3367,11 @@ svg {
   outline-offset: 2px;
 }
 
+.after\:content-\[\'\:\'\]::after {
+  --tw-content: ':';
+  content: var(--tw-content);
+}
+
 .hover\:text-black:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));

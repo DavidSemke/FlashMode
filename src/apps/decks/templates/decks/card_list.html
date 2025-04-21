@@ -7,34 +7,35 @@
             {% if card_list %}
                 <ul x-data="{ expandedId: null, expanded(cardId) { return this.expandedId === cardId } }" class='flex flex-col gap-6 w-full'>
                     {% for card in card_list %}
-                        <li class='flex gap-2 p-4 bg-base-200 border-b rounded-lg'>
-                            <dl class='grow flex flex-col gap-2'>
-                                <div :class="expanded({{ card.id }}) ? null : 'line-clamp-2'">
-                                    <dt class='inline pr-2'>Q</dt>
-                                    <dd class='inline'>{{ card.question }}</dd>
+                        <li class='flex flex-col gap-2 p-4 bg-base-200 border-b rounded-lg'>
+                            <div class='flex gap-2 items-center'>
+                                <div :class="expanded({{ card.id }}) ? null : 'line-clamp-2'" class='grow'>
+                                    <span class="pr-2 after:content-[':']">Q</span>
+                                    <span>{{ card.question }}</span>
                                 </div>
-                                <div x-cloak x-show="expanded({{ card.id }})">
-                                    <dt class='inline pr-2'>A</dt>
-                                    <dd class='inline'>{{ card.answer }}</dd>
-                                </div>
-                            </dl>
-                            <div class='flex flex-col justify-center gap-2'>
-                                <button @click="expandedId = expandedId === null || !expanded({{ card.id }}) ? {{ card.id }} : null" type='button' :aria-label="expanded({{ card.id }}) ? 'Show answer' : 'Hide answer'" class='btn-secondary btn-sm sm:btn-md btn-ghost text-secondary'>
+                                <button @click="expandedId = expandedId === null || !expanded({{ card.id }}) ? {{ card.id }} : null" type='button' :aria-label="expanded({{ card.id }}) ? 'Show answer' : 'Hide answer'" :aria-expanded="expanded({{ card.id }})" aria-controls="lower-card" class='btn-secondary btn-sm sm:btn-md btn-ghost text-secondary'>
                                     <div :class="expanded({{ card.id }}) ? 'rotate-180' : null" class='transition-transform duration-300'>
                                         <c-svg.chevron_down_icon aria-hidden="true" class='size-6' />
                                     </div>
                                 </button>
-                                <a x-cloak x-show="expanded({{ card.id }})" href="{% url 'decks:card_update' deck.id card.id %}" aria-label="Update card" class='btn btn-secondary btn-sm sm:btn-md btn-ghost text-secondary'>
-                                    <c-svg.edit_icon aria-hidden="true" class='size-6' />
-                                </a>
-                                <a x-cloak x-show="expanded({{ card.id }})" href="{% url 'decks:card_delete' deck.id card.id %}" aria-label="Delete card" class='btn btn-secondary btn-sm sm:btn-md btn-ghost text-secondary'>
-                                    <c-svg.delete_icon aria-hidden="true" class='size-6' />
-                                </a>
+                            </div>
+                            <div id='lower-card' x-cloak x-show="expanded({{ card.id }})" x-collapse class='flex gap-2'>
+                                <div class='grow'>
+                                    <span class="pr-2 after:content-[':']">A</span>
+                                    <span>{{ card.answer }}</span>
+                                </div>
+                                <div class='flex flex-col items-center'>
+                                    <a href="{% url 'decks:card_update' deck.id card.id %}" aria-label="Update card" class='btn btn-secondary btn-sm sm:btn-md btn-ghost text-secondary'>
+                                        <c-svg.edit_icon aria-hidden="true" class='size-6' />
+                                    </a>
+                                    <a href="{% url 'decks:card_delete' deck.id card.id %}" aria-label="Delete card" class='btn btn-secondary btn-sm sm:btn-md btn-ghost text-secondary'>
+                                        <c-svg.delete_icon aria-hidden="true" class='size-6' />
+                                    </a>
+                                </div>
                             </div>
                         </li>
                     {% endfor %}
                 </ul>
-
             {% else %}
                 <span class='flex'>There are no cards here!</span>
             {% endif %}

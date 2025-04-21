@@ -8,6 +8,7 @@ STATIC_VENDOR_DIR = getattr(settings, "STATIC_VENDOR_DIR")
 
 VENDOR_STATICFILES = {
     "htmx.min.js": "https://unpkg.com/htmx.org@2.0.3/dist/htmx.min.js",
+    "alpine-collapse.min.js": "https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js",
     "alpine-core.min.js": "https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js",
 }
 
