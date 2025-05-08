@@ -1,3 +1,4 @@
+from decouple import config
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 
@@ -37,6 +38,15 @@ class Command(BaseCommand):
     # Handles 1-1 relationships (e.g. Profile)
     def _insert_users(self, count=3):
         self.stdout.write("Inserting users...")
+
+        # Create admin user
+        User = get_user_model()
+        User.objects.create_superuser(
+            username=config("ADMIN_USERNAME"),
+            email=config("ADMIN_EMAIL"),
+            password=config("ADMIN_PASSWORD"),
+        )
+
         return [UserFactory() for _ in range(count)]
 
     def _insert_decks(self, users, count=10):
