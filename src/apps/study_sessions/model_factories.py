@@ -20,6 +20,9 @@ class ResponseFactory(DjangoModelFactory):
     class Meta:
         model = Response
 
+    class Params:
+        is_correct_bool = Faker("pybool")
+
     study_session = Iterator(StudySession.objects.all())
     card = LazyAttribute(
         lambda obj: Card.objects.filter(deck=obj.study_session.deck)
@@ -48,5 +51,5 @@ class ResponseFactory(DjangoModelFactory):
             position__lt=obj.position,
             is_correct=None,
         ).exists()
-        else Faker("pybool").evaluate(None, None, {"locale": None})
+        else obj.is_correct_bool
     )
